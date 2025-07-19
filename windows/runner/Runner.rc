@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.esupa" "\0"
-            VALUE "FileDescription", "esupa_store_pos" "\0"
+            VALUE "CompanyName", "com.example" "\0"
+            VALUE "FileDescription", "whiteboard" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "esupa_store_pos" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.esupa. All rights reserved." "\0"
-            VALUE "OriginalFilename", "esupa_store_pos.exe" "\0"
-            VALUE "ProductName", "esupa_store_pos" "\0"
+            VALUE "InternalName", "whiteboard" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "whiteboard.exe" "\0"
+            VALUE "ProductName", "whiteboard" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

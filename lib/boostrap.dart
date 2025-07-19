@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:whiteboard/data_layer/initialize.dart' as data_layer;
 
 import 'aliases.dart';
-import 'data_layer/initialize.dart';
 import 'flavor_config.dart';
+import 'initialize.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -45,7 +45,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   await data_layer.initializeDependencies();
 
-  initializeDependencies();
+  await initializeDependencies();
 
   runApp(await builder());
 }

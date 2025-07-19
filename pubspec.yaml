@@ -36,6 +36,8 @@ dependencies:
 
   web_socket_client: ^0.2.1
 
+  desktop_multi_window: ^0.2.0 # Use the latest version
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -10,7 +10,7 @@ import 'splash_page.dart';
 mixin AppRouter {
   GoRouter buildRouter(AuthBloc authBloc) {
     return GoRouter(
-      initialLocation: '/splash',
+      initialLocation: '/document',
       routes: <RouteBase>[
         GoRoute(
           path: '/splash',

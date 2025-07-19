@@ -1,0 +1,79 @@
+output: dist/
+releases:
+  - name: staging
+    jobs:
+      # See full documentation: https://distributor.leanflutter.org/configuration/makers/exe
+      - name: windows-exe
+        package:
+          platform: windows
+          target: exe
+          build_args:
+            dart-define:
+              FLAVOR: staging
+              BASE_VAULT_URL: https://vault-ebond.ohmidasvn.dev/v1/
+              VAULT_USERNAME: admin
+              VAULT_PASSWORD: Ohmidas@123
+  - name: uat
+    jobs:
+      # See full documentation: https://distributor.leanflutter.org/configuration/makers/exe
+      - name: windows-exe
+        package:
+          platform: windows
+          target: exe
+          build_args:
+            dart-define:
+              FLAVOR: uat
+              BASE_VAULT_URL: https://vault-ebond.ohmidasvn.dev/v1/
+              VAULT_USERNAME: admin
+              VAULT_PASSWORD: Ohmidas@123
+  - name: dev
+    jobs:
+      - name: windows-exe
+        package:
+          platform: windows
+          target: exe
+          build_args:
+            dart-define:
+              FLAVOR: dev
+              BASE_VAULT_URL: https://vault-ebond.ohmidasvn.dev/v1/
+              VAULT_USERNAME: admin
+              VAULT_PASSWORD: Ohmidas@123
+
+  - name: test_api
+    jobs:
+      - name: windows-exe
+        package:
+          platform: windows
+          target: exe
+          build_args:
+            dart-define:
+              FLAVOR: test_api
+              BASE_VAULT_URL: https://vault-ebond.ohmidasvn.dev/v1/
+              VAULT_USERNAME: admin
+              VAULT_PASSWORD: Ohmidas@123
+
+  - name: test
+    jobs:
+      - name: windows-exe
+        package:
+          platform: windows
+          target: exe
+          build_args:
+            dart-define:
+              FLAVOR: test
+              BASE_VAULT_URL: https://vault-ebond.ohmidasvn.dev/v1/
+              VAULT_USERNAME: admin
+              VAULT_PASSWORD: Ohmidas@123
+
+  - name: prod
+    jobs:
+      - name: windows-exe
+        package:
+          platform: windows
+          target: exe
+          build_args:
+            dart-define:
+              FLAVOR: prod
+              BASE_VAULT_URL: https://vault-ebond.ohmidasvn.dev/v1/
+              VAULT_USERNAME: admin
+              VAULT_PASSWORD: Ohmidas@123

@@ -1,0 +1,25 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        generate_for:
+          include:
+            - lib/**/cubit/**
+            - lib/**/bloc/**
+            - lib/business_logic/models/**
+          exclude:
+            - lib/test/
+      freezed:
+        options:
+          copy_with: true
+          equal: true
+          format: true
+          hash: true
+
+        generate_for:
+          include:
+            - lib/**/cubit/**
+            - lib/**/bloc/**
+            - lib/**/models/**
+          exclude:
+            - lib/test/

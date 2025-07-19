@@ -1,0 +1,4 @@
+{
+  "FLAVOR": "LOCAL",
+  "API_URL": "http://localhost:9203/api"
+}

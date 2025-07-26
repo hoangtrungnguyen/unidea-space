@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'document_page_bloc.dart';
+part of 'dashboard_page_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,11 +12,11 @@ part of 'document_page_bloc.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$DocumentPageEvent {
+mixin _$DashboardPageEvent {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is DocumentPageEvent);
+        (other.runtimeType == runtimeType && other is DashboardPageEvent);
   }
 
   @override
@@ -24,20 +24,20 @@ mixin _$DocumentPageEvent {
 
   @override
   String toString() {
-    return 'DocumentPageEvent()';
+    return 'DashboardPageEvent()';
   }
 }
 
 /// @nodoc
-class $DocumentPageEventCopyWith<$Res> {
-  $DocumentPageEventCopyWith(
-    DocumentPageEvent _,
-    $Res Function(DocumentPageEvent) __,
+class $DashboardPageEventCopyWith<$Res> {
+  $DashboardPageEventCopyWith(
+    DashboardPageEvent _,
+    $Res Function(DashboardPageEvent) __,
   );
 }
 
-/// Adds pattern-matching-related methods to [DocumentPageEvent].
-extension DocumentPageEventPatterns on DocumentPageEvent {
+/// Adds pattern-matching-related methods to [DashboardPageEvent].
+extension DashboardPageEventPatterns on DashboardPageEvent {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -195,7 +195,7 @@ extension DocumentPageEventPatterns on DocumentPageEvent {
 
 /// @nodoc
 
-class _Initialized implements DocumentPageEvent {
+class _Initialized implements DashboardPageEvent {
   const _Initialized();
 
   @override
@@ -209,12 +209,12 @@ class _Initialized implements DocumentPageEvent {
 
   @override
   String toString() {
-    return 'DocumentPageEvent.initialized()';
+    return 'DashboardPageEvent.initialized()';
   }
 }
 
 /// @nodoc
-class _$InitializedCopyWith<$Res> implements $DocumentPageEventCopyWith<$Res> {
+class _$InitializedCopyWith<$Res> implements $DashboardPageEventCopyWith<$Res> {
   _$InitializedCopyWith(_Initialized _, $Res Function(_Initialized) __);
 }
 
@@ -227,17 +227,17 @@ class __$InitializedCopyWithImpl<$Res> implements _$InitializedCopyWith<$Res> {
 }
 
 /// @nodoc
-mixin _$DocumentPageState {
-  DocumentPageStatus get status;
+mixin _$DashboardPageState {
+  DashboardPageStatus get status;
   Exception? get failure;
 
-  /// Create a copy of DocumentPageState
+  /// Create a copy of DashboardPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $DocumentPageStateCopyWith<DocumentPageState> get copyWith =>
-      _$DocumentPageStateCopyWithImpl<DocumentPageState>(
-        this as DocumentPageState,
+  $DashboardPageStateCopyWith<DashboardPageState> get copyWith =>
+      _$DashboardPageStateCopyWithImpl<DashboardPageState>(
+        this as DashboardPageState,
         _$identity,
       );
 
@@ -245,7 +245,7 @@ mixin _$DocumentPageState {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is DocumentPageState &&
+            other is DashboardPageState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
@@ -255,29 +255,29 @@ mixin _$DocumentPageState {
 
   @override
   String toString() {
-    return 'DocumentPageState(status: $status, failure: $failure)';
+    return 'DashboardPageState(status: $status, failure: $failure)';
   }
 }
 
 /// @nodoc
-abstract mixin class $DocumentPageStateCopyWith<$Res> {
-  factory $DocumentPageStateCopyWith(
-    DocumentPageState value,
-    $Res Function(DocumentPageState) _then,
-  ) = _$DocumentPageStateCopyWithImpl;
+abstract mixin class $DashboardPageStateCopyWith<$Res> {
+  factory $DashboardPageStateCopyWith(
+    DashboardPageState value,
+    $Res Function(DashboardPageState) _then,
+  ) = _$DashboardPageStateCopyWithImpl;
   @useResult
-  $Res call({DocumentPageStatus status, Exception? failure});
+  $Res call({DashboardPageStatus status, Exception? failure});
 }
 
 /// @nodoc
-class _$DocumentPageStateCopyWithImpl<$Res>
-    implements $DocumentPageStateCopyWith<$Res> {
-  _$DocumentPageStateCopyWithImpl(this._self, this._then);
+class _$DashboardPageStateCopyWithImpl<$Res>
+    implements $DashboardPageStateCopyWith<$Res> {
+  _$DashboardPageStateCopyWithImpl(this._self, this._then);
 
-  final DocumentPageState _self;
-  final $Res Function(DocumentPageState) _then;
+  final DashboardPageState _self;
+  final $Res Function(DashboardPageState) _then;
 
-  /// Create a copy of DocumentPageState
+  /// Create a copy of DashboardPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -288,7 +288,7 @@ class _$DocumentPageStateCopyWithImpl<$Res>
             null == status
                 ? _self.status
                 : status // ignore: cast_nullable_to_non_nullable
-                    as DocumentPageStatus,
+                    as DashboardPageStatus,
         failure:
             freezed == failure
                 ? _self.failure
@@ -299,8 +299,8 @@ class _$DocumentPageStateCopyWithImpl<$Res>
   }
 }
 
-/// Adds pattern-matching-related methods to [DocumentPageState].
-extension DocumentPageStatePatterns on DocumentPageState {
+/// Adds pattern-matching-related methods to [DashboardPageState].
+extension DashboardPageStatePatterns on DashboardPageState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -315,12 +315,12 @@ extension DocumentPageStatePatterns on DocumentPageState {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_DocumentPageState value)? $default, {
+    TResult Function(_DashboardPageState value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _DocumentPageState() when $default != null:
+      case _DashboardPageState() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -342,11 +342,11 @@ extension DocumentPageStatePatterns on DocumentPageState {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_DocumentPageState value) $default,
+    TResult Function(_DashboardPageState value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DocumentPageState():
+      case _DashboardPageState():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -367,11 +367,11 @@ extension DocumentPageStatePatterns on DocumentPageState {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_DocumentPageState value)? $default,
+    TResult? Function(_DashboardPageState value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DocumentPageState() when $default != null:
+      case _DashboardPageState() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -392,12 +392,13 @@ extension DocumentPageStatePatterns on DocumentPageState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(DocumentPageStatus status, Exception? failure)? $default, {
+    TResult Function(DashboardPageStatus status, Exception? failure)?
+    $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _DocumentPageState() when $default != null:
+      case _DashboardPageState() when $default != null:
         return $default(_that.status, _that.failure);
       case _:
         return orElse();
@@ -419,11 +420,11 @@ extension DocumentPageStatePatterns on DocumentPageState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(DocumentPageStatus status, Exception? failure) $default,
+    TResult Function(DashboardPageStatus status, Exception? failure) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DocumentPageState():
+      case _DashboardPageState():
         return $default(_that.status, _that.failure);
       case _:
         throw StateError('Unexpected subclass');
@@ -444,11 +445,11 @@ extension DocumentPageStatePatterns on DocumentPageState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(DocumentPageStatus status, Exception? failure)? $default,
+    TResult? Function(DashboardPageStatus status, Exception? failure)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DocumentPageState() when $default != null:
+      case _DashboardPageState() when $default != null:
         return $default(_that.status, _that.failure);
       case _:
         return null;
@@ -458,31 +459,31 @@ extension DocumentPageStatePatterns on DocumentPageState {
 
 /// @nodoc
 
-class _DocumentPageState implements DocumentPageState {
-  const _DocumentPageState({
-    this.status = DocumentPageStatus.initial,
+class _DashboardPageState implements DashboardPageState {
+  const _DashboardPageState({
+    this.status = DashboardPageStatus.initial,
     this.failure,
   });
 
   @override
   @JsonKey()
-  final DocumentPageStatus status;
+  final DashboardPageStatus status;
   @override
   final Exception? failure;
 
-  /// Create a copy of DocumentPageState
+  /// Create a copy of DashboardPageState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$DocumentPageStateCopyWith<_DocumentPageState> get copyWith =>
-      __$DocumentPageStateCopyWithImpl<_DocumentPageState>(this, _$identity);
+  _$DashboardPageStateCopyWith<_DashboardPageState> get copyWith =>
+      __$DashboardPageStateCopyWithImpl<_DashboardPageState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DocumentPageState &&
+            other is _DashboardPageState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
@@ -492,42 +493,42 @@ class _DocumentPageState implements DocumentPageState {
 
   @override
   String toString() {
-    return 'DocumentPageState(status: $status, failure: $failure)';
+    return 'DashboardPageState(status: $status, failure: $failure)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$DocumentPageStateCopyWith<$Res>
-    implements $DocumentPageStateCopyWith<$Res> {
-  factory _$DocumentPageStateCopyWith(
-    _DocumentPageState value,
-    $Res Function(_DocumentPageState) _then,
-  ) = __$DocumentPageStateCopyWithImpl;
+abstract mixin class _$DashboardPageStateCopyWith<$Res>
+    implements $DashboardPageStateCopyWith<$Res> {
+  factory _$DashboardPageStateCopyWith(
+    _DashboardPageState value,
+    $Res Function(_DashboardPageState) _then,
+  ) = __$DashboardPageStateCopyWithImpl;
   @override
   @useResult
-  $Res call({DocumentPageStatus status, Exception? failure});
+  $Res call({DashboardPageStatus status, Exception? failure});
 }
 
 /// @nodoc
-class __$DocumentPageStateCopyWithImpl<$Res>
-    implements _$DocumentPageStateCopyWith<$Res> {
-  __$DocumentPageStateCopyWithImpl(this._self, this._then);
+class __$DashboardPageStateCopyWithImpl<$Res>
+    implements _$DashboardPageStateCopyWith<$Res> {
+  __$DashboardPageStateCopyWithImpl(this._self, this._then);
 
-  final _DocumentPageState _self;
-  final $Res Function(_DocumentPageState) _then;
+  final _DashboardPageState _self;
+  final $Res Function(_DashboardPageState) _then;
 
-  /// Create a copy of DocumentPageState
+  /// Create a copy of DashboardPageState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({Object? status = null, Object? failure = freezed}) {
     return _then(
-      _DocumentPageState(
+      _DashboardPageState(
         status:
             null == status
                 ? _self.status
                 : status // ignore: cast_nullable_to_non_nullable
-                    as DocumentPageStatus,
+                    as DashboardPageStatus,
         failure:
             freezed == failure
                 ? _self.failure

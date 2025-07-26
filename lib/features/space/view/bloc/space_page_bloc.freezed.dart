@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'canvas_page_bloc.dart';
+part of 'space_page_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,11 +12,11 @@ part of 'canvas_page_bloc.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$CanvasPageEvent {
+mixin _$SpacePageEvent {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is CanvasPageEvent);
+        (other.runtimeType == runtimeType && other is SpacePageEvent);
   }
 
   @override
@@ -24,20 +24,17 @@ mixin _$CanvasPageEvent {
 
   @override
   String toString() {
-    return 'CanvasPageEvent()';
+    return 'SpacePageEvent()';
   }
 }
 
 /// @nodoc
-class $CanvasPageEventCopyWith<$Res> {
-  $CanvasPageEventCopyWith(
-    CanvasPageEvent _,
-    $Res Function(CanvasPageEvent) __,
-  );
+class $SpacePageEventCopyWith<$Res> {
+  $SpacePageEventCopyWith(SpacePageEvent _, $Res Function(SpacePageEvent) __);
 }
 
-/// Adds pattern-matching-related methods to [CanvasPageEvent].
-extension CanvasPageEventPatterns on CanvasPageEvent {
+/// Adds pattern-matching-related methods to [SpacePageEvent].
+extension SpacePageEventPatterns on SpacePageEvent {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -195,7 +192,7 @@ extension CanvasPageEventPatterns on CanvasPageEvent {
 
 /// @nodoc
 
-class _Initialized implements CanvasPageEvent {
+class _Initialized implements SpacePageEvent {
   const _Initialized();
 
   @override
@@ -209,12 +206,12 @@ class _Initialized implements CanvasPageEvent {
 
   @override
   String toString() {
-    return 'CanvasPageEvent.initialized()';
+    return 'SpacePageEvent.initialized()';
   }
 }
 
 /// @nodoc
-class _$InitializedCopyWith<$Res> implements $CanvasPageEventCopyWith<$Res> {
+class _$InitializedCopyWith<$Res> implements $SpacePageEventCopyWith<$Res> {
   _$InitializedCopyWith(_Initialized _, $Res Function(_Initialized) __);
 }
 
@@ -227,17 +224,17 @@ class __$InitializedCopyWithImpl<$Res> implements _$InitializedCopyWith<$Res> {
 }
 
 /// @nodoc
-mixin _$CanvasPageState {
-  CanvasPageStatus get status;
+mixin _$SpacePageState {
+  SpacePageStatus get status;
   Exception? get failure;
 
-  /// Create a copy of CanvasPageState
+  /// Create a copy of SpacePageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $CanvasPageStateCopyWith<CanvasPageState> get copyWith =>
-      _$CanvasPageStateCopyWithImpl<CanvasPageState>(
-        this as CanvasPageState,
+  $SpacePageStateCopyWith<SpacePageState> get copyWith =>
+      _$SpacePageStateCopyWithImpl<SpacePageState>(
+        this as SpacePageState,
         _$identity,
       );
 
@@ -245,7 +242,7 @@ mixin _$CanvasPageState {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is CanvasPageState &&
+            other is SpacePageState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
@@ -255,29 +252,29 @@ mixin _$CanvasPageState {
 
   @override
   String toString() {
-    return 'CanvasPageState(status: $status, failure: $failure)';
+    return 'SpacePageState(status: $status, failure: $failure)';
   }
 }
 
 /// @nodoc
-abstract mixin class $CanvasPageStateCopyWith<$Res> {
-  factory $CanvasPageStateCopyWith(
-    CanvasPageState value,
-    $Res Function(CanvasPageState) _then,
-  ) = _$CanvasPageStateCopyWithImpl;
+abstract mixin class $SpacePageStateCopyWith<$Res> {
+  factory $SpacePageStateCopyWith(
+    SpacePageState value,
+    $Res Function(SpacePageState) _then,
+  ) = _$SpacePageStateCopyWithImpl;
   @useResult
-  $Res call({CanvasPageStatus status, Exception? failure});
+  $Res call({SpacePageStatus status, Exception? failure});
 }
 
 /// @nodoc
-class _$CanvasPageStateCopyWithImpl<$Res>
-    implements $CanvasPageStateCopyWith<$Res> {
-  _$CanvasPageStateCopyWithImpl(this._self, this._then);
+class _$SpacePageStateCopyWithImpl<$Res>
+    implements $SpacePageStateCopyWith<$Res> {
+  _$SpacePageStateCopyWithImpl(this._self, this._then);
 
-  final CanvasPageState _self;
-  final $Res Function(CanvasPageState) _then;
+  final SpacePageState _self;
+  final $Res Function(SpacePageState) _then;
 
-  /// Create a copy of CanvasPageState
+  /// Create a copy of SpacePageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -288,7 +285,7 @@ class _$CanvasPageStateCopyWithImpl<$Res>
             null == status
                 ? _self.status
                 : status // ignore: cast_nullable_to_non_nullable
-                    as CanvasPageStatus,
+                    as SpacePageStatus,
         failure:
             freezed == failure
                 ? _self.failure
@@ -299,8 +296,8 @@ class _$CanvasPageStateCopyWithImpl<$Res>
   }
 }
 
-/// Adds pattern-matching-related methods to [CanvasPageState].
-extension CanvasPageStatePatterns on CanvasPageState {
+/// Adds pattern-matching-related methods to [SpacePageState].
+extension SpacePageStatePatterns on SpacePageState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -315,12 +312,12 @@ extension CanvasPageStatePatterns on CanvasPageState {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_CanvasPageState value)? $default, {
+    TResult Function(_SpacePageState value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _CanvasPageState() when $default != null:
+      case _SpacePageState() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -342,11 +339,11 @@ extension CanvasPageStatePatterns on CanvasPageState {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_CanvasPageState value) $default,
+    TResult Function(_SpacePageState value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _CanvasPageState():
+      case _SpacePageState():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -367,11 +364,11 @@ extension CanvasPageStatePatterns on CanvasPageState {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_CanvasPageState value)? $default,
+    TResult? Function(_SpacePageState value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _CanvasPageState() when $default != null:
+      case _SpacePageState() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -392,12 +389,12 @@ extension CanvasPageStatePatterns on CanvasPageState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CanvasPageStatus status, Exception? failure)? $default, {
+    TResult Function(SpacePageStatus status, Exception? failure)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _CanvasPageState() when $default != null:
+      case _SpacePageState() when $default != null:
         return $default(_that.status, _that.failure);
       case _:
         return orElse();
@@ -419,11 +416,11 @@ extension CanvasPageStatePatterns on CanvasPageState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CanvasPageStatus status, Exception? failure) $default,
+    TResult Function(SpacePageStatus status, Exception? failure) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _CanvasPageState():
+      case _SpacePageState():
         return $default(_that.status, _that.failure);
       case _:
         throw StateError('Unexpected subclass');
@@ -444,11 +441,11 @@ extension CanvasPageStatePatterns on CanvasPageState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(CanvasPageStatus status, Exception? failure)? $default,
+    TResult? Function(SpacePageStatus status, Exception? failure)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _CanvasPageState() when $default != null:
+      case _SpacePageState() when $default != null:
         return $default(_that.status, _that.failure);
       case _:
         return null;
@@ -458,31 +455,28 @@ extension CanvasPageStatePatterns on CanvasPageState {
 
 /// @nodoc
 
-class _CanvasPageState implements CanvasPageState {
-  const _CanvasPageState({
-    this.status = CanvasPageStatus.initial,
-    this.failure,
-  });
+class _SpacePageState implements SpacePageState {
+  const _SpacePageState({this.status = SpacePageStatus.initial, this.failure});
 
   @override
   @JsonKey()
-  final CanvasPageStatus status;
+  final SpacePageStatus status;
   @override
   final Exception? failure;
 
-  /// Create a copy of CanvasPageState
+  /// Create a copy of SpacePageState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$CanvasPageStateCopyWith<_CanvasPageState> get copyWith =>
-      __$CanvasPageStateCopyWithImpl<_CanvasPageState>(this, _$identity);
+  _$SpacePageStateCopyWith<_SpacePageState> get copyWith =>
+      __$SpacePageStateCopyWithImpl<_SpacePageState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CanvasPageState &&
+            other is _SpacePageState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
@@ -492,42 +486,42 @@ class _CanvasPageState implements CanvasPageState {
 
   @override
   String toString() {
-    return 'CanvasPageState(status: $status, failure: $failure)';
+    return 'SpacePageState(status: $status, failure: $failure)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$CanvasPageStateCopyWith<$Res>
-    implements $CanvasPageStateCopyWith<$Res> {
-  factory _$CanvasPageStateCopyWith(
-    _CanvasPageState value,
-    $Res Function(_CanvasPageState) _then,
-  ) = __$CanvasPageStateCopyWithImpl;
+abstract mixin class _$SpacePageStateCopyWith<$Res>
+    implements $SpacePageStateCopyWith<$Res> {
+  factory _$SpacePageStateCopyWith(
+    _SpacePageState value,
+    $Res Function(_SpacePageState) _then,
+  ) = __$SpacePageStateCopyWithImpl;
   @override
   @useResult
-  $Res call({CanvasPageStatus status, Exception? failure});
+  $Res call({SpacePageStatus status, Exception? failure});
 }
 
 /// @nodoc
-class __$CanvasPageStateCopyWithImpl<$Res>
-    implements _$CanvasPageStateCopyWith<$Res> {
-  __$CanvasPageStateCopyWithImpl(this._self, this._then);
+class __$SpacePageStateCopyWithImpl<$Res>
+    implements _$SpacePageStateCopyWith<$Res> {
+  __$SpacePageStateCopyWithImpl(this._self, this._then);
 
-  final _CanvasPageState _self;
-  final $Res Function(_CanvasPageState) _then;
+  final _SpacePageState _self;
+  final $Res Function(_SpacePageState) _then;
 
-  /// Create a copy of CanvasPageState
+  /// Create a copy of SpacePageState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({Object? status = null, Object? failure = freezed}) {
     return _then(
-      _CanvasPageState(
+      _SpacePageState(
         status:
             null == status
                 ? _self.status
                 : status // ignore: cast_nullable_to_non_nullable
-                    as CanvasPageStatus,
+                    as SpacePageStatus,
         failure:
             freezed == failure
                 ? _self.failure

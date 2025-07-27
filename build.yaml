@@ -18,6 +18,7 @@ targets:
 
         generate_for:
           include:
+            - lib/**/dto/**
             - lib/**/cubit/**
             - lib/**/bloc/**
             - lib/**/models/**

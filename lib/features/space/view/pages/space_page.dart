@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ideascape/features/space/domain/models/grid_painter.dart';
 import 'package:ideascape/features/space/domain/models/object_painter.dart';
 import 'package:ideascape/features/space/domain/models/objects/space_object.dart';
 import 'package:ideascape/features/space/view/bloc/space_page_bloc.dart';
@@ -94,6 +95,12 @@ class _SpacePageState extends State<SpacePage> {
                         builder: (BuildContext context, Widget? child) {
                           return Stack(
                             children: [
+                              CustomPaint(
+                                size: MediaQuery.of(context).size * 15,
+                                painter: GridPainter(
+                                  transformationController: _controller,
+                                ),
+                              ),
                               CustomPaint(
                                 // Set a size for the canvas world.
                                 size: Size(defaultWidth, defaultHeight),

@@ -24,10 +24,11 @@ mixin AppRouter {
               (BuildContext context, GoRouterState state) => const HomePage(),
         ),
         GoRoute(
-          path: '/dashboard',
+          path: DashboardPage.routePath,
+          name: DashboardPage.routeName,
           builder:
               (BuildContext context, GoRouterState state) =>
-                  const DashboardPage(),
+                  const DashboardPageBlocProvider(),
         ),
         GoRoute(
           path: IdeaScape.routePath,

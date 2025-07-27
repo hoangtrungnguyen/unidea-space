@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ideascape/aliases.dart';
+import 'package:ideascape/features/dashboard/view/bloc/dashboard_page_bloc.dart';
 import 'package:ideascape/features/dashboard/view/widgets/project_space_card.dart';
 
 import '../widgets/sidebar.dart';
 
+class DashboardPageBlocProvider extends StatelessWidget {
+  const DashboardPageBlocProvider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create:
+          (_) =>
+              DashboardPageBloc(getIt())..add(DashboardPageEvent.initialized()),
+      child: DashboardPage(),
+    );
+  }
+}
+
 class DashboardPage extends StatelessWidget {
   static const String routePath = '/dashboard';
   static const String routeName = 'Dashboard';
-
-  // Dummy data for demonstration
-  final List<Map<String, String>> dummyBoards = const [
-    {'title': 'Q3 Project Planning', 'edited': 'Today by you'},
-    {'title': 'API Gateway Design', 'edited': '21 Jun by co-worker'},
-    {'title': 'Customer Journey Map', 'edited': '15 May by you'},
-    {'title': 'Mobile App Flowchart', 'edited': '1 Apr by team'},
-    {'title': 'Sprint Retrospective', 'edited': '28 Mar by manager'},
-  ];
 
   const DashboardPage({super.key});
 
@@ -59,19 +67,23 @@ class DashboardPage extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 250,
-                            childAspectRatio: 1.1,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
-                          ),
-                      itemCount: dummyBoards.length,
-                      itemBuilder: (context, index) {
-                        return ProjectSpaceCard(
-                          title: dummyBoards[index]['title']!,
-                          lastEdited: dummyBoards[index]['edited']!,
+                    child: BlocBuilder<DashboardPageBloc, DashboardPageState>(
+                      builder: (context, state) {
+                        return GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 250,
+                                childAspectRatio: 1.1,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20,
+                              ),
+                          itemCount: state.items.length,
+                          itemBuilder: (context, index) {
+                            return ProjectSpaceCard(
+                              title: state.items[index].title,
+                              lastEdited: state.items[index].lastEdited,
+                            );
+                          },
                         );
                       },
                     ),

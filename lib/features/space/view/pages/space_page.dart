@@ -4,8 +4,9 @@ import 'package:ideascape/features/space/domain/models/object_painter.dart';
 import 'package:ideascape/features/space/domain/models/objects/space_object.dart';
 import 'package:ideascape/features/space/view/bloc/space_page_bloc.dart';
 import 'package:ideascape/features/space/view/bloc/toolbar/toolbar_bloc.dart';
-import 'package:ideascape/features/space/view/constant.dart';
 import 'package:ideascape/features/space/view/widgets/toolbar.dart';
+
+import '../constant.dart';
 
 class IdeaScape extends StatelessWidget {
   static const String routePath = '/canvas-space';
@@ -42,9 +43,7 @@ class _SpacePageState extends State<SpacePage> {
     super.initState();
     // Initialize the controller with the desired initial scale.
     _controller = TransformationController(
-      Matrix4.identity()
-        ..scale(_initialScale)
-        ..translate(2500.0, 2500.0),
+      Matrix4.identity()..scale(_initialScale),
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -86,6 +85,7 @@ class _SpacePageState extends State<SpacePage> {
                   children: [
                     InteractiveViewer(
                       transformationController: _controller,
+                      boundaryMargin: const EdgeInsets.all(double.infinity),
                       // panEnabled: _selectedTool == SpaceTool.pan,
                       minScale: 1,
                       maxScale: 100.0,
@@ -96,7 +96,7 @@ class _SpacePageState extends State<SpacePage> {
                             children: [
                               CustomPaint(
                                 // Set a size for the canvas world.
-                                size: const Size(defaultWidth, defaultHeight),
+                                size: Size(defaultWidth, defaultHeight),
                                 // The painter gets the objects and the current transform matrix from the state.
                                 painter: ObjectPainter(
                                   objects:

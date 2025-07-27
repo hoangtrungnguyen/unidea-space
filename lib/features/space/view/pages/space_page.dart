@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:whiteboard/features/space/domain/models/drawing_path.dart';
-import 'package:whiteboard/features/space/domain/models/space_painter.dart';
-import 'package:whiteboard/features/space/view/widgets/toolbar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ideascape/features/space/domain/models/object_painter.dart';
+import 'package:ideascape/features/space/domain/models/objects/space_object.dart';
+import 'package:ideascape/features/space/view/bloc/space_page_bloc.dart';
+import 'package:ideascape/features/space/view/bloc/toolbar/toolbar_bloc.dart';
+import 'package:ideascape/features/space/view/constant.dart';
+import 'package:ideascape/features/space/view/widgets/toolbar.dart';
+
+class IdeaScape extends StatelessWidget {
+  static const String routePath = '/canvas-space';
+  static const String routeName = 'Space';
+
+  const IdeaScape({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => SpacePageBloc()),
+        BlocProvider(create: (context) => ToolbarBloc()),
+      ],
+      child: SpacePage(),
+    );
+  }
+}
 
 class SpacePage extends StatefulWidget {
-  static const String routePath = '/canvas-space';
-  static const String routeName = 'Canvas Space';
-
   const SpacePage({super.key});
 
   @override
@@ -14,40 +33,23 @@ class SpacePage extends StatefulWidget {
 }
 
 class _SpacePageState extends State<SpacePage> {
-  final List<DrawingPath> _paths = [];
-  SpaceTool _selectedTool = SpaceTool.pen;
+  late TransformationController _controller;
+  final double _initialScale =
+      3.0; // Set your initial scale factor here (e.g., 2.0 for 2x zoom)
 
-  void _onPanStart(DragStartDetails details) {
-    if (_selectedTool != SpaceTool.pen && _selectedTool != SpaceTool.eraser)
-      return;
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the controller with the desired initial scale.
+    _controller = TransformationController(
+      Matrix4.identity()
+        ..scale(_initialScale)
+        ..translate(2500.0, 2500.0),
+    );
 
-    final paint =
-        Paint()
-          ..color =
-              _selectedTool == SpaceTool.eraser
-                  ? const Color(0xFFF0F2F5)
-                  : Colors.black
-          ..strokeWidth = _selectedTool == SpaceTool.eraser ? 12.0 : 4.0
-          ..style = PaintingStyle.stroke
-          ..strokeCap = StrokeCap.round
-          ..strokeJoin = StrokeJoin.round;
-
-    final path = Path();
-    path.moveTo(details.localPosition.dx, details.localPosition.dy);
-
-    setState(() {
-      _paths.add(DrawingPath(path: path, paint: paint));
-    });
-  }
-
-  void _onPanUpdate(DragUpdateDetails details) {
-    if (_selectedTool != SpaceTool.pen && _selectedTool != SpaceTool.eraser)
-      return;
-
-    setState(() {
-      _paths.last.path.lineTo(
-        details.localPosition.dx,
-        details.localPosition.dy,
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SpacePageBloc>().add(
+        SpacePageEvent.initialize(_controller.value),
       );
     });
   }
@@ -56,16 +58,10 @@ class _SpacePageState extends State<SpacePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         title: const Text("Collaboration Space"),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.undo),
-            onPressed: () {
-              if (_paths.isNotEmpty) {
-                setState(() => _paths.removeLast());
-              }
-            },
-          ),
+          IconButton(icon: const Icon(Icons.undo), onPressed: () {}),
           IconButton(icon: const Icon(Icons.share), onPressed: () {}),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -73,39 +69,74 @@ class _SpacePageState extends State<SpacePage> {
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          InteractiveViewer(
-            panEnabled: _selectedTool == SpaceTool.pan,
-            minScale: 0.1,
-            maxScale: 4.0,
-            child: GestureDetector(
-              onPanStart: _onPanStart,
-              onPanUpdate: _onPanUpdate,
-              child: RepaintBoundary(
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Colors.white,
-                  child: CustomPaint(painter: SpacePainter(_paths)),
+      body: BlocConsumer<SpacePageBloc, SpacePageState>(
+        builder: (context, state) {
+          if (state.status == SpacePageStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state.status == SpacePageStatus.failure) {
+            return const Center(child: Text("Error"));
+          }
+
+          return Stack(
+            children: [
+              // The main interactive canvas area
+              GestureDetector(
+                child: Stack(
+                  children: [
+                    InteractiveViewer(
+                      transformationController: _controller,
+                      // panEnabled: _selectedTool == SpaceTool.pan,
+                      minScale: 1,
+                      maxScale: 100.0,
+                      child: AnimatedBuilder(
+                        animation: _controller,
+                        builder: (BuildContext context, Widget? child) {
+                          return Stack(
+                            children: [
+                              CustomPaint(
+                                // Set a size for the canvas world.
+                                size: const Size(defaultWidth, defaultHeight),
+                                // The painter gets the objects and the current transform matrix from the state.
+                                painter: ObjectPainter(
+                                  objects:
+                                      state.objects.values
+                                          .whereType<ShapeObject>()
+                                          .toList(),
+                                  transform: state.transformMatrix,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
-          Positioned(
-            top: 16,
-            left: 16,
-            child: ToolBar(
-              selectedTool: _selectedTool,
-              onToolSelected: (tool) {
-                setState(() {
-                  _selectedTool = tool;
-                });
-              },
-            ),
-          ),
-        ],
+
+              // Left-side main toolbar
+              Positioned(top: 16, left: 16, child: ToolBar()),
+            ],
+          );
+        },
+        listenWhen: (p, c) {
+          return p.transformMatrix != c.transformMatrix;
+        },
+        listener: (BuildContext context, SpacePageState state) {
+          _controller.value = state.transformMatrix;
+        },
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onPanStart(DragStartDetails details) {}
+
+  void _onHorizontalDragStart(DragStartDetails details) {}
 }

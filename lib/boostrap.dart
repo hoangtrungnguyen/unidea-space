@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:whiteboard/data_layer/initialize.dart' as data_layer;
+import 'package:ideascape/data_layer/initialize.dart' as data_layer;
 
 import 'aliases.dart';
 import 'flavor_config.dart';
@@ -29,10 +27,6 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
-  if (kIsWasm || kIsWeb) {
-    usePathUrlStrategy();
-  }
-
   FlutterError.onError = (details) {
     talker.error(details.exceptionAsString(), details.exception, details.stack);
   };

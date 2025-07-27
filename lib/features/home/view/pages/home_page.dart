@@ -20,6 +20,12 @@ class HomePage extends StatelessWidget {
           },
           child: Text("Document"),
         ),
+        ElevatedButton(
+          onPressed: () {
+            context.push('/demo-gridview');
+          },
+          child: Text("Demo GridView"),
+        ),
       ],
     );
   }

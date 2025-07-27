@@ -1,13 +1,85 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:ideascape/features/space/domain/models/objects/space_object.dart';
+import 'package:ideascape/features/space/view/constant.dart';
 
 part 'space_page_bloc.freezed.dart';
 part 'space_page_event.dart';
 part 'space_page_state.dart';
 
-class SpacePageBloc extends Bloc<SpacePageEvent,SpacePageState>{
+// A unique ID generator for our objects to simplify finding them.
+int _uniqueIdCounter = 0;
 
-  SpacePageBloc():super(SpacePageState()){
+int get nextUniqueId => _uniqueIdCounter++;
 
+class SpacePageBloc extends Bloc<SpacePageEvent, SpacePageState> {
+  SpacePageBloc() : super(SpacePageState.initialize()) {
+    on<_Initialized>(_onInitialize);
+
+    on<_ObjectDragged>((event, emit) {});
+
+    on<_SpaceTransformUpdated>(_onSpaceTransformUpdated);
+  }
+
+  void _onSpaceTransformUpdated(
+    _SpaceTransformUpdated event,
+    Emitter<SpacePageState> emit,
+  ) {
+    emit(state.copyWith(transformMatrix: event.matrix));
+  }
+
+  void _onInitialize(_Initialized event, Emitter<SpacePageState> emit) {
+    emit(state.copyWith(status: SpacePageStatus.loading));
+    final random = Random();
+    final Map<int, ShapeObject> generatedObjects = {};
+    const int objectCount = 1; // Let's manage 10,000 objects!
+    const double worldSize = defaultWidth;
+    for (int i = 0; i < objectCount; i++) {
+      final id = nextUniqueId;
+
+      final paint =
+          Paint()
+            ..color = Color.fromRGBO(
+              random.nextInt(255),
+              random.nextInt(255),
+              random.nextInt(255),
+              1,
+            )
+            ..style = PaintingStyle.fill;
+
+      generatedObjects[id] = ShapeObject(
+        id: id,
+        paint: paint,
+        rect: Rect.fromLTWH(
+          random.nextDouble() * worldSize,
+          random.nextDouble() * worldSize,
+          50 + random.nextDouble() * 50,
+          50 + random.nextDouble() * 50,
+        ),
+        type: ShapeType.rectangle,
+      );
+    }
+
+    emit(
+      state.copyWith(
+        transformMatrix: event.transformMatrix,
+        status: SpacePageStatus.success,
+        objects: generatedObjects,
+      ),
+    );
+  }
+
+  Matrix4 _centerView() {
+    // Calculate the offset to center the child in the viewport.
+    final double xOffset = defaultWidth / 2;
+    final double yOffset = defaultHeight / 2;
+
+    // Create a matrix that translates the view to the center.
+    final Matrix4 matrix = Matrix4.identity()..translate(xOffset, yOffset);
+
+    return matrix;
   }
 }

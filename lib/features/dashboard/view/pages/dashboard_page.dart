@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whiteboard/features/dashboard/view/widgets/project_space_card.dart';
+import 'package:ideascape/features/dashboard/view/widgets/project_space_card.dart';
 
 import '../widgets/sidebar.dart';
 

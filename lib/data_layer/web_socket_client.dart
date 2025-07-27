@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:rxdart/rxdart.dart';
-import 'package:whiteboard/aliases.dart';
+import 'package:ideascape/aliases.dart';
 
 class SocketSession {
   final WebSocket subscriber;

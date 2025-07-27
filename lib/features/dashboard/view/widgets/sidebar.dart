@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -19,6 +20,9 @@ class Sidebar extends StatelessWidget {
             leading: const Icon(Icons.home_filled),
             title: const Text('Home'),
             tileColor: Colors.blue.withOpacity(0.1),
+            onTap: () {
+              context.go('/home');
+            },
           ),
           const Spacer(),
           const Divider(thickness: 1),

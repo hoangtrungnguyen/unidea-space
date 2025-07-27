@@ -1,5 +1,5 @@
-import 'package:whiteboard/aliases.dart';
-import 'package:whiteboard/flavor_config.dart';
+import 'package:ideascape/aliases.dart';
+import 'package:ideascape/flavor_config.dart';
 
 import 'remote_api_data_source.dart';
 

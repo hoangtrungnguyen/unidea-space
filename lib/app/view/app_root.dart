@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:whiteboard/app/view/pages/page_router.dart';
+import 'package:ideascape/app/view/pages/page_router.dart';
 
 import 'bloc/auth/auth_bloc.dart';
 
@@ -28,7 +28,8 @@ class _AppRootState extends State<AppRoot> with AppRouter {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _router,
-      title: "POS App",
+      title: "IdeaScape",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
     );
   }

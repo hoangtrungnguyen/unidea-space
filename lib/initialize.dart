@@ -1,4 +1,4 @@
-import 'package:whiteboard/data_layer/web_socket_client.dart';
+import 'package:ideascape/data_layer/web_socket_client.dart';
 
 import 'aliases.dart';
 

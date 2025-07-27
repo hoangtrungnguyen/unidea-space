@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whiteboard/utils/network_listener_mixin.dart'; // Import the new mixin
+import 'package:ideascape/utils/network_listener_mixin.dart'; // Import the new mixin
 
 import 'bloc/network/network_bloc.dart';
 

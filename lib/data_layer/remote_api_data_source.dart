@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
-import 'package:ideascape/aliases.dart';
 
 typedef OnSaveNewTokens =
     Future<void> Function({
@@ -18,7 +16,6 @@ typedef OnSaveNewAuth = Future Function(Map<String, dynamic> responseUerModel);
 class RestApiSource {
   final Dio _dio;
 
-  @visibleForTesting
   Dio get dio => _dio;
 
   final TalkerDioLogger dioTalker = TalkerDioLogger(
@@ -56,21 +53,21 @@ class RestApiSource {
     // You can add interceptors here if needed
     _dio.interceptors.add(dioTalker);
 
-    setAuthorizationToken(token);
+    // setAuthorizationToken(token);
 
-    _dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          if (options.path.contains('api/auth/logout')) {
-            talker.info('Log Out');
-            return;
-          }
-          // Retrieve the token from secure storage.
-          return handler.next(options);
-        },
-        onError: (err, handler) async {},
-      ),
-    );
+    // _dio.interceptors.add(
+    //   InterceptorsWrapper(
+    //     onRequest: (options, handler) async {
+    //       if (options.path.contains('api/auth/logout')) {
+    //         talker.info('Log Out');
+    //         return;
+    //       }
+    //       Retrieve the token from secure storage.
+    // return handler.next(options);
+    // },
+    // onError: (err, handler) async {},
+    // ),
+    // );
   }
 
   // Generic GET request

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ideascape/aliases.dart';
 import 'package:ideascape/features/dashboard/view/bloc/dashboard_page_bloc.dart';
 import 'package:ideascape/features/dashboard/view/widgets/project_space_card.dart';
+import 'package:ideascape/features/space/view/pages/space_page.dart';
 
 import '../widgets/sidebar.dart';
 
@@ -15,7 +17,20 @@ class DashboardPageBlocProvider extends StatelessWidget {
       create:
           (_) =>
               DashboardPageBloc(getIt())..add(DashboardPageEvent.initialized()),
-      child: DashboardPage(),
+      child: Builder(
+        builder: (BuildContext context) {
+          return BlocListener<DashboardPageBloc, DashboardPageState>(
+            listener: (context, state) {
+              switch (state) {
+                case DashboardPageStateCreatedSpaceSuccess():
+                  context.push(IdeaScape.routePath);
+                  break;
+              }
+            },
+            child: DashboardPage(),
+          );
+        },
+      ),
     );
   }
 }
@@ -30,6 +45,15 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<DashboardPageBloc>().add(
+            DashboardPageEvent.createdSpace(),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
       body: Row(
         children: [
           // Sidebar Navigation
@@ -77,11 +101,11 @@ class DashboardPage extends StatelessWidget {
                                 crossAxisSpacing: 20,
                                 mainAxisSpacing: 20,
                               ),
-                          itemCount: state.items.length,
+                          itemCount: state.data.items.length,
                           itemBuilder: (context, index) {
                             return ProjectSpaceCard(
-                              title: state.items[index].title,
-                              lastEdited: state.items[index].lastEdited,
+                              title: state.data.items[index].title,
+                              lastEdited: state.data.items[index].lastEdited,
                             );
                           },
                         );

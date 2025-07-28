@@ -27,6 +27,9 @@ mixin _$DashBoardSpaceItemDto {
         _$identity,
       );
 
+  /// Serializes this DashBoardSpaceItemDto to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -38,6 +41,7 @@ mixin _$DashBoardSpaceItemDto {
                 other.lastEdited == lastEdited));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, lastEdited);
 
@@ -254,13 +258,15 @@ extension DashBoardSpaceItemDtoPatterns on DashBoardSpaceItemDto {
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _DashBoardSpaceItemDto implements DashBoardSpaceItemDto {
   _DashBoardSpaceItemDto({
     required this.id,
     required this.name,
     this.lastEdited = "",
   });
+  factory _DashBoardSpaceItemDto.fromJson(Map<String, dynamic> json) =>
+      _$DashBoardSpaceItemDtoFromJson(json);
 
   @override
   final String id;
@@ -282,6 +288,11 @@ class _DashBoardSpaceItemDto implements DashBoardSpaceItemDto {
       );
 
   @override
+  Map<String, dynamic> toJson() {
+    return _$DashBoardSpaceItemDtoToJson(this);
+  }
+
+  @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -292,6 +303,7 @@ class _DashBoardSpaceItemDto implements DashBoardSpaceItemDto {
                 other.lastEdited == lastEdited));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, lastEdited);
 

@@ -53,12 +53,15 @@ extension DashboardPageEventPatterns on DashboardPageEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
+    TResult Function(_CreatedSpace value)? createdSpace,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Initialized() when initialized != null:
         return initialized(_that);
+      case _CreatedSpace() when createdSpace != null:
+        return createdSpace(_that);
       case _:
         return orElse();
     }
@@ -80,11 +83,14 @@ extension DashboardPageEventPatterns on DashboardPageEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
+    required TResult Function(_CreatedSpace value) createdSpace,
   }) {
     final _that = this;
     switch (_that) {
       case _Initialized():
         return initialized(_that);
+      case _CreatedSpace():
+        return createdSpace(_that);
     }
   }
 
@@ -103,11 +109,14 @@ extension DashboardPageEventPatterns on DashboardPageEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_CreatedSpace value)? createdSpace,
   }) {
     final _that = this;
     switch (_that) {
       case _Initialized() when initialized != null:
         return initialized(_that);
+      case _CreatedSpace() when createdSpace != null:
+        return createdSpace(_that);
       case _:
         return null;
     }
@@ -128,12 +137,15 @@ extension DashboardPageEventPatterns on DashboardPageEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
+    TResult Function()? createdSpace,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Initialized() when initialized != null:
         return initialized();
+      case _CreatedSpace() when createdSpace != null:
+        return createdSpace();
       case _:
         return orElse();
     }
@@ -155,11 +167,14 @@ extension DashboardPageEventPatterns on DashboardPageEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialized,
+    required TResult Function() createdSpace,
   }) {
     final _that = this;
     switch (_that) {
       case _Initialized():
         return initialized();
+      case _CreatedSpace():
+        return createdSpace();
     }
   }
 
@@ -178,11 +193,14 @@ extension DashboardPageEventPatterns on DashboardPageEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialized,
+    TResult? Function()? createdSpace,
   }) {
     final _that = this;
     switch (_that) {
       case _Initialized() when initialized != null:
         return initialized();
+      case _CreatedSpace() when createdSpace != null:
+        return createdSpace();
       case _:
         return null;
     }
@@ -223,10 +241,43 @@ class __$InitializedCopyWithImpl<$Res> implements _$InitializedCopyWith<$Res> {
 }
 
 /// @nodoc
+
+class _CreatedSpace implements DashboardPageEvent {
+  const _CreatedSpace();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _CreatedSpace);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'DashboardPageEvent.createdSpace()';
+  }
+}
+
+/// @nodoc
+class _$CreatedSpaceCopyWith<$Res>
+    implements $DashboardPageEventCopyWith<$Res> {
+  _$CreatedSpaceCopyWith(_CreatedSpace _, $Res Function(_CreatedSpace) __);
+}
+
+/// @nodoc
+class __$CreatedSpaceCopyWithImpl<$Res>
+    implements _$CreatedSpaceCopyWith<$Res> {
+  __$CreatedSpaceCopyWithImpl(this._self, this._then);
+
+  final _CreatedSpace _self;
+  final $Res Function(_CreatedSpace) _then;
+}
+
+/// @nodoc
 mixin _$DashboardPageState {
-  DashboardPageStatus get status;
-  List<DashboardItem> get items;
-  Exception? get failure;
+  DashboardPageData get data;
 
   /// Create a copy of DashboardPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -243,22 +294,15 @@ mixin _$DashboardPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DashboardPageState &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other.items, items) &&
-            (identical(other.failure, failure) || other.failure == failure));
+            (identical(other.data, data) || other.data == data));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    status,
-    const DeepCollectionEquality().hash(items),
-    failure,
-  );
+  int get hashCode => Object.hash(runtimeType, data);
 
   @override
   String toString() {
-    return 'DashboardPageState(status: $status, items: $items, failure: $failure)';
+    return 'DashboardPageState(data: $data)';
   }
 }
 
@@ -269,11 +313,9 @@ abstract mixin class $DashboardPageStateCopyWith<$Res> {
     $Res Function(DashboardPageState) _then,
   ) = _$DashboardPageStateCopyWithImpl;
   @useResult
-  $Res call({
-    DashboardPageStatus status,
-    List<DashboardItem> items,
-    Exception? failure,
-  });
+  $Res call({DashboardPageData data});
+
+  $DashboardPageDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -288,30 +330,26 @@ class _$DashboardPageStateCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? status = null,
-    Object? items = null,
-    Object? failure = freezed,
-  }) {
+  $Res call({Object? data = null}) {
     return _then(
       _self.copyWith(
-        status:
-            null == status
-                ? _self.status
-                : status // ignore: cast_nullable_to_non_nullable
-                    as DashboardPageStatus,
-        items:
-            null == items
-                ? _self.items
-                : items // ignore: cast_nullable_to_non_nullable
-                    as List<DashboardItem>,
-        failure:
-            freezed == failure
-                ? _self.failure
-                : failure // ignore: cast_nullable_to_non_nullable
-                    as Exception?,
+        data:
+            null == data
+                ? _self.data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as DashboardPageData,
       ),
     );
+  }
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardPageDataCopyWith<$Res> get data {
+    return $DashboardPageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
   }
 }
 
@@ -330,13 +368,750 @@ extension DashboardPageStatePatterns on DashboardPageState {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_DashboardPageState value)? $default, {
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DashboardPageStateInitial value)? initial,
+    TResult Function(DashboardPageStateLoading value)? loading,
+    TResult Function(DashboardPageStateSuccess value)? success,
+    TResult Function(DashboardPageStateFailure value)? failure,
+    TResult Function(DashboardPageStateCreatedSpaceSuccess value)?
+    createSpaceSuccess,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _DashboardPageState() when $default != null:
+      case DashboardPageStateInitial() when initial != null:
+        return initial(_that);
+      case DashboardPageStateLoading() when loading != null:
+        return loading(_that);
+      case DashboardPageStateSuccess() when success != null:
+        return success(_that);
+      case DashboardPageStateFailure() when failure != null:
+        return failure(_that);
+      case DashboardPageStateCreatedSpaceSuccess()
+          when createSpaceSuccess != null:
+        return createSpaceSuccess(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DashboardPageStateInitial value) initial,
+    required TResult Function(DashboardPageStateLoading value) loading,
+    required TResult Function(DashboardPageStateSuccess value) success,
+    required TResult Function(DashboardPageStateFailure value) failure,
+    required TResult Function(DashboardPageStateCreatedSpaceSuccess value)
+    createSpaceSuccess,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case DashboardPageStateInitial():
+        return initial(_that);
+      case DashboardPageStateLoading():
+        return loading(_that);
+      case DashboardPageStateSuccess():
+        return success(_that);
+      case DashboardPageStateFailure():
+        return failure(_that);
+      case DashboardPageStateCreatedSpaceSuccess():
+        return createSpaceSuccess(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(DashboardPageStateInitial value)? initial,
+    TResult? Function(DashboardPageStateLoading value)? loading,
+    TResult? Function(DashboardPageStateSuccess value)? success,
+    TResult? Function(DashboardPageStateFailure value)? failure,
+    TResult? Function(DashboardPageStateCreatedSpaceSuccess value)?
+    createSpaceSuccess,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case DashboardPageStateInitial() when initial != null:
+        return initial(_that);
+      case DashboardPageStateLoading() when loading != null:
+        return loading(_that);
+      case DashboardPageStateSuccess() when success != null:
+        return success(_that);
+      case DashboardPageStateFailure() when failure != null:
+        return failure(_that);
+      case DashboardPageStateCreatedSpaceSuccess()
+          when createSpaceSuccess != null:
+        return createSpaceSuccess(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DashboardPageData data)? initial,
+    TResult Function(DashboardPageData data)? loading,
+    TResult Function(DashboardPageData data)? success,
+    TResult Function(DashboardPageData data, Exception failure)? failure,
+    TResult Function(DashboardPageData data)? createSpaceSuccess,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case DashboardPageStateInitial() when initial != null:
+        return initial(_that.data);
+      case DashboardPageStateLoading() when loading != null:
+        return loading(_that.data);
+      case DashboardPageStateSuccess() when success != null:
+        return success(_that.data);
+      case DashboardPageStateFailure() when failure != null:
+        return failure(_that.data, _that.failure);
+      case DashboardPageStateCreatedSpaceSuccess()
+          when createSpaceSuccess != null:
+        return createSpaceSuccess(_that.data);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(DashboardPageData data) initial,
+    required TResult Function(DashboardPageData data) loading,
+    required TResult Function(DashboardPageData data) success,
+    required TResult Function(DashboardPageData data, Exception failure)
+    failure,
+    required TResult Function(DashboardPageData data) createSpaceSuccess,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case DashboardPageStateInitial():
+        return initial(_that.data);
+      case DashboardPageStateLoading():
+        return loading(_that.data);
+      case DashboardPageStateSuccess():
+        return success(_that.data);
+      case DashboardPageStateFailure():
+        return failure(_that.data, _that.failure);
+      case DashboardPageStateCreatedSpaceSuccess():
+        return createSpaceSuccess(_that.data);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DashboardPageData data)? initial,
+    TResult? Function(DashboardPageData data)? loading,
+    TResult? Function(DashboardPageData data)? success,
+    TResult? Function(DashboardPageData data, Exception failure)? failure,
+    TResult? Function(DashboardPageData data)? createSpaceSuccess,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case DashboardPageStateInitial() when initial != null:
+        return initial(_that.data);
+      case DashboardPageStateLoading() when loading != null:
+        return loading(_that.data);
+      case DashboardPageStateSuccess() when success != null:
+        return success(_that.data);
+      case DashboardPageStateFailure() when failure != null:
+        return failure(_that.data, _that.failure);
+      case DashboardPageStateCreatedSpaceSuccess()
+          when createSpaceSuccess != null:
+        return createSpaceSuccess(_that.data);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+class DashboardPageStateInitial implements DashboardPageState {
+  const DashboardPageStateInitial(this.data);
+
+  @override
+  final DashboardPageData data;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DashboardPageStateInitialCopyWith<DashboardPageStateInitial> get copyWith =>
+      _$DashboardPageStateInitialCopyWithImpl<DashboardPageStateInitial>(
+        this,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DashboardPageStateInitial &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @override
+  String toString() {
+    return 'DashboardPageState.initial(data: $data)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $DashboardPageStateInitialCopyWith<$Res>
+    implements $DashboardPageStateCopyWith<$Res> {
+  factory $DashboardPageStateInitialCopyWith(
+    DashboardPageStateInitial value,
+    $Res Function(DashboardPageStateInitial) _then,
+  ) = _$DashboardPageStateInitialCopyWithImpl;
+  @override
+  @useResult
+  $Res call({DashboardPageData data});
+
+  @override
+  $DashboardPageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$DashboardPageStateInitialCopyWithImpl<$Res>
+    implements $DashboardPageStateInitialCopyWith<$Res> {
+  _$DashboardPageStateInitialCopyWithImpl(this._self, this._then);
+
+  final DashboardPageStateInitial _self;
+  final $Res Function(DashboardPageStateInitial) _then;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null}) {
+    return _then(
+      DashboardPageStateInitial(
+        null == data
+            ? _self.data
+            : data // ignore: cast_nullable_to_non_nullable
+                as DashboardPageData,
+      ),
+    );
+  }
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardPageDataCopyWith<$Res> get data {
+    return $DashboardPageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class DashboardPageStateLoading implements DashboardPageState {
+  const DashboardPageStateLoading(this.data);
+
+  @override
+  final DashboardPageData data;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DashboardPageStateLoadingCopyWith<DashboardPageStateLoading> get copyWith =>
+      _$DashboardPageStateLoadingCopyWithImpl<DashboardPageStateLoading>(
+        this,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DashboardPageStateLoading &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @override
+  String toString() {
+    return 'DashboardPageState.loading(data: $data)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $DashboardPageStateLoadingCopyWith<$Res>
+    implements $DashboardPageStateCopyWith<$Res> {
+  factory $DashboardPageStateLoadingCopyWith(
+    DashboardPageStateLoading value,
+    $Res Function(DashboardPageStateLoading) _then,
+  ) = _$DashboardPageStateLoadingCopyWithImpl;
+  @override
+  @useResult
+  $Res call({DashboardPageData data});
+
+  @override
+  $DashboardPageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$DashboardPageStateLoadingCopyWithImpl<$Res>
+    implements $DashboardPageStateLoadingCopyWith<$Res> {
+  _$DashboardPageStateLoadingCopyWithImpl(this._self, this._then);
+
+  final DashboardPageStateLoading _self;
+  final $Res Function(DashboardPageStateLoading) _then;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null}) {
+    return _then(
+      DashboardPageStateLoading(
+        null == data
+            ? _self.data
+            : data // ignore: cast_nullable_to_non_nullable
+                as DashboardPageData,
+      ),
+    );
+  }
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardPageDataCopyWith<$Res> get data {
+    return $DashboardPageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class DashboardPageStateSuccess implements DashboardPageState {
+  const DashboardPageStateSuccess(this.data);
+
+  @override
+  final DashboardPageData data;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DashboardPageStateSuccessCopyWith<DashboardPageStateSuccess> get copyWith =>
+      _$DashboardPageStateSuccessCopyWithImpl<DashboardPageStateSuccess>(
+        this,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DashboardPageStateSuccess &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @override
+  String toString() {
+    return 'DashboardPageState.success(data: $data)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $DashboardPageStateSuccessCopyWith<$Res>
+    implements $DashboardPageStateCopyWith<$Res> {
+  factory $DashboardPageStateSuccessCopyWith(
+    DashboardPageStateSuccess value,
+    $Res Function(DashboardPageStateSuccess) _then,
+  ) = _$DashboardPageStateSuccessCopyWithImpl;
+  @override
+  @useResult
+  $Res call({DashboardPageData data});
+
+  @override
+  $DashboardPageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$DashboardPageStateSuccessCopyWithImpl<$Res>
+    implements $DashboardPageStateSuccessCopyWith<$Res> {
+  _$DashboardPageStateSuccessCopyWithImpl(this._self, this._then);
+
+  final DashboardPageStateSuccess _self;
+  final $Res Function(DashboardPageStateSuccess) _then;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null}) {
+    return _then(
+      DashboardPageStateSuccess(
+        null == data
+            ? _self.data
+            : data // ignore: cast_nullable_to_non_nullable
+                as DashboardPageData,
+      ),
+    );
+  }
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardPageDataCopyWith<$Res> get data {
+    return $DashboardPageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class DashboardPageStateFailure implements DashboardPageState {
+  const DashboardPageStateFailure(this.data, {required this.failure});
+
+  @override
+  final DashboardPageData data;
+  final Exception failure;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DashboardPageStateFailureCopyWith<DashboardPageStateFailure> get copyWith =>
+      _$DashboardPageStateFailureCopyWithImpl<DashboardPageStateFailure>(
+        this,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DashboardPageStateFailure &&
+            (identical(other.data, data) || other.data == data) &&
+            (identical(other.failure, failure) || other.failure == failure));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data, failure);
+
+  @override
+  String toString() {
+    return 'DashboardPageState.failure(data: $data, failure: $failure)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $DashboardPageStateFailureCopyWith<$Res>
+    implements $DashboardPageStateCopyWith<$Res> {
+  factory $DashboardPageStateFailureCopyWith(
+    DashboardPageStateFailure value,
+    $Res Function(DashboardPageStateFailure) _then,
+  ) = _$DashboardPageStateFailureCopyWithImpl;
+  @override
+  @useResult
+  $Res call({DashboardPageData data, Exception failure});
+
+  @override
+  $DashboardPageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$DashboardPageStateFailureCopyWithImpl<$Res>
+    implements $DashboardPageStateFailureCopyWith<$Res> {
+  _$DashboardPageStateFailureCopyWithImpl(this._self, this._then);
+
+  final DashboardPageStateFailure _self;
+  final $Res Function(DashboardPageStateFailure) _then;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null, Object? failure = null}) {
+    return _then(
+      DashboardPageStateFailure(
+        null == data
+            ? _self.data
+            : data // ignore: cast_nullable_to_non_nullable
+                as DashboardPageData,
+        failure:
+            null == failure
+                ? _self.failure
+                : failure // ignore: cast_nullable_to_non_nullable
+                    as Exception,
+      ),
+    );
+  }
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardPageDataCopyWith<$Res> get data {
+    return $DashboardPageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class DashboardPageStateCreatedSpaceSuccess implements DashboardPageState {
+  const DashboardPageStateCreatedSpaceSuccess(this.data);
+
+  @override
+  final DashboardPageData data;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DashboardPageStateCreatedSpaceSuccessCopyWith<
+    DashboardPageStateCreatedSpaceSuccess
+  >
+  get copyWith => _$DashboardPageStateCreatedSpaceSuccessCopyWithImpl<
+    DashboardPageStateCreatedSpaceSuccess
+  >(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DashboardPageStateCreatedSpaceSuccess &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @override
+  String toString() {
+    return 'DashboardPageState.createSpaceSuccess(data: $data)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $DashboardPageStateCreatedSpaceSuccessCopyWith<$Res>
+    implements $DashboardPageStateCopyWith<$Res> {
+  factory $DashboardPageStateCreatedSpaceSuccessCopyWith(
+    DashboardPageStateCreatedSpaceSuccess value,
+    $Res Function(DashboardPageStateCreatedSpaceSuccess) _then,
+  ) = _$DashboardPageStateCreatedSpaceSuccessCopyWithImpl;
+  @override
+  @useResult
+  $Res call({DashboardPageData data});
+
+  @override
+  $DashboardPageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$DashboardPageStateCreatedSpaceSuccessCopyWithImpl<$Res>
+    implements $DashboardPageStateCreatedSpaceSuccessCopyWith<$Res> {
+  _$DashboardPageStateCreatedSpaceSuccessCopyWithImpl(this._self, this._then);
+
+  final DashboardPageStateCreatedSpaceSuccess _self;
+  final $Res Function(DashboardPageStateCreatedSpaceSuccess) _then;
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null}) {
+    return _then(
+      DashboardPageStateCreatedSpaceSuccess(
+        null == data
+            ? _self.data
+            : data // ignore: cast_nullable_to_non_nullable
+                as DashboardPageData,
+      ),
+    );
+  }
+
+  /// Create a copy of DashboardPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardPageDataCopyWith<$Res> get data {
+    return $DashboardPageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+mixin _$DashboardPageData {
+  List<DashboardItem> get items;
+
+  /// Create a copy of DashboardPageData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DashboardPageDataCopyWith<DashboardPageData> get copyWith =>
+      _$DashboardPageDataCopyWithImpl<DashboardPageData>(
+        this as DashboardPageData,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DashboardPageData &&
+            const DeepCollectionEquality().equals(other.items, items));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(items));
+
+  @override
+  String toString() {
+    return 'DashboardPageData(items: $items)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $DashboardPageDataCopyWith<$Res> {
+  factory $DashboardPageDataCopyWith(
+    DashboardPageData value,
+    $Res Function(DashboardPageData) _then,
+  ) = _$DashboardPageDataCopyWithImpl;
+  @useResult
+  $Res call({List<DashboardItem> items});
+}
+
+/// @nodoc
+class _$DashboardPageDataCopyWithImpl<$Res>
+    implements $DashboardPageDataCopyWith<$Res> {
+  _$DashboardPageDataCopyWithImpl(this._self, this._then);
+
+  final DashboardPageData _self;
+  final $Res Function(DashboardPageData) _then;
+
+  /// Create a copy of DashboardPageData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? items = null}) {
+    return _then(
+      _self.copyWith(
+        items:
+            null == items
+                ? _self.items
+                : items // ignore: cast_nullable_to_non_nullable
+                    as List<DashboardItem>,
+      ),
+    );
+  }
+}
+
+/// Adds pattern-matching-related methods to [DashboardPageData].
+extension DashboardPageDataPatterns on DashboardPageData {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_DashboardPageData value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _DashboardPageData() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -358,11 +1133,11 @@ extension DashboardPageStatePatterns on DashboardPageState {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_DashboardPageState value) $default,
+    TResult Function(_DashboardPageData value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DashboardPageState():
+      case _DashboardPageData():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -383,11 +1158,11 @@ extension DashboardPageStatePatterns on DashboardPageState {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_DashboardPageState value)? $default,
+    TResult? Function(_DashboardPageData value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DashboardPageState() when $default != null:
+      case _DashboardPageData() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -408,18 +1183,13 @@ extension DashboardPageStatePatterns on DashboardPageState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-      DashboardPageStatus status,
-      List<DashboardItem> items,
-      Exception? failure,
-    )?
-    $default, {
+    TResult Function(List<DashboardItem> items)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _DashboardPageState() when $default != null:
-        return $default(_that.status, _that.items, _that.failure);
+      case _DashboardPageData() when $default != null:
+        return $default(_that.items);
       case _:
         return orElse();
     }
@@ -440,17 +1210,12 @@ extension DashboardPageStatePatterns on DashboardPageState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(
-      DashboardPageStatus status,
-      List<DashboardItem> items,
-      Exception? failure,
-    )
-    $default,
+    TResult Function(List<DashboardItem> items) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DashboardPageState():
-        return $default(_that.status, _that.items, _that.failure);
+      case _DashboardPageData():
+        return $default(_that.items);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -470,17 +1235,12 @@ extension DashboardPageStatePatterns on DashboardPageState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-      DashboardPageStatus status,
-      List<DashboardItem> items,
-      Exception? failure,
-    )?
-    $default,
+    TResult? Function(List<DashboardItem> items)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DashboardPageState() when $default != null:
-        return $default(_that.status, _that.items, _that.failure);
+      case _DashboardPageData() when $default != null:
+        return $default(_that.items);
       case _:
         return null;
     }
@@ -489,16 +1249,10 @@ extension DashboardPageStatePatterns on DashboardPageState {
 
 /// @nodoc
 
-class _DashboardPageState implements DashboardPageState {
-  const _DashboardPageState({
-    this.status = DashboardPageStatus.initial,
-    final List<DashboardItem> items = const [],
-    this.failure,
-  }) : _items = items;
+class _DashboardPageData implements DashboardPageData {
+  const _DashboardPageData({final List<DashboardItem> items = const []})
+    : _items = items;
 
-  @override
-  @JsonKey()
-  final DashboardPageStatus status;
   final List<DashboardItem> _items;
   @override
   @JsonKey()
@@ -508,91 +1262,64 @@ class _DashboardPageState implements DashboardPageState {
     return EqualUnmodifiableListView(_items);
   }
 
-  @override
-  final Exception? failure;
-
-  /// Create a copy of DashboardPageState
+  /// Create a copy of DashboardPageData
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$DashboardPageStateCopyWith<_DashboardPageState> get copyWith =>
-      __$DashboardPageStateCopyWithImpl<_DashboardPageState>(this, _$identity);
+  _$DashboardPageDataCopyWith<_DashboardPageData> get copyWith =>
+      __$DashboardPageDataCopyWithImpl<_DashboardPageData>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DashboardPageState &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other._items, _items) &&
-            (identical(other.failure, failure) || other.failure == failure));
+            other is _DashboardPageData &&
+            const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    status,
-    const DeepCollectionEquality().hash(_items),
-    failure,
-  );
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
 
   @override
   String toString() {
-    return 'DashboardPageState(status: $status, items: $items, failure: $failure)';
+    return 'DashboardPageData(items: $items)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$DashboardPageStateCopyWith<$Res>
-    implements $DashboardPageStateCopyWith<$Res> {
-  factory _$DashboardPageStateCopyWith(
-    _DashboardPageState value,
-    $Res Function(_DashboardPageState) _then,
-  ) = __$DashboardPageStateCopyWithImpl;
+abstract mixin class _$DashboardPageDataCopyWith<$Res>
+    implements $DashboardPageDataCopyWith<$Res> {
+  factory _$DashboardPageDataCopyWith(
+    _DashboardPageData value,
+    $Res Function(_DashboardPageData) _then,
+  ) = __$DashboardPageDataCopyWithImpl;
   @override
   @useResult
-  $Res call({
-    DashboardPageStatus status,
-    List<DashboardItem> items,
-    Exception? failure,
-  });
+  $Res call({List<DashboardItem> items});
 }
 
 /// @nodoc
-class __$DashboardPageStateCopyWithImpl<$Res>
-    implements _$DashboardPageStateCopyWith<$Res> {
-  __$DashboardPageStateCopyWithImpl(this._self, this._then);
+class __$DashboardPageDataCopyWithImpl<$Res>
+    implements _$DashboardPageDataCopyWith<$Res> {
+  __$DashboardPageDataCopyWithImpl(this._self, this._then);
 
-  final _DashboardPageState _self;
-  final $Res Function(_DashboardPageState) _then;
+  final _DashboardPageData _self;
+  final $Res Function(_DashboardPageData) _then;
 
-  /// Create a copy of DashboardPageState
+  /// Create a copy of DashboardPageData
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $Res call({
-    Object? status = null,
-    Object? items = null,
-    Object? failure = freezed,
-  }) {
+  $Res call({Object? items = null}) {
     return _then(
-      _DashboardPageState(
-        status:
-            null == status
-                ? _self.status
-                : status // ignore: cast_nullable_to_non_nullable
-                    as DashboardPageStatus,
+      _DashboardPageData(
         items:
             null == items
                 ? _self._items
                 : items // ignore: cast_nullable_to_non_nullable
                     as List<DashboardItem>,
-        failure:
-            freezed == failure
-                ? _self.failure
-                : failure // ignore: cast_nullable_to_non_nullable
-                    as Exception?,
       ),
     );
   }

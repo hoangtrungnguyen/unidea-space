@@ -4,6 +4,7 @@ targets:
       json_serializable:
         generate_for:
           include:
+            - lib/**/dto/**
             - lib/**/cubit/**
             - lib/**/bloc/**
             - lib/business_logic/models/**

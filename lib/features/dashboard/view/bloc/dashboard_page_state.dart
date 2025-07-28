@@ -1,14 +1,33 @@
 part of 'dashboard_page_bloc.dart';
 
-enum DashboardPageStatus { initial, loading, success, failure }
-
 @freezed
 abstract class DashboardPageState with _$DashboardPageState {
-  const factory DashboardPageState({
-    @Default(DashboardPageStatus.initial) DashboardPageStatus status,
-    @Default([]) List<DashboardItem> items,
-    Exception? failure,
-  }) = _DashboardPageState;
+  const factory DashboardPageState.initial(DashboardPageData data) =
+      DashboardPageStateInitial;
+
+  const factory DashboardPageState.loading(DashboardPageData data) =
+      DashboardPageStateLoading;
+
+  const factory DashboardPageState.success(DashboardPageData data) =
+      DashboardPageStateSuccess;
+
+  const factory DashboardPageState.failure(
+    DashboardPageData data, {
+    required Exception failure,
+  }) = DashboardPageStateFailure;
+
+  const factory DashboardPageState.createSpaceSuccess(DashboardPageData data) =
+      DashboardPageStateCreatedSpaceSuccess;
+}
+
+@freezed
+abstract class DashboardPageData with _$DashboardPageData {
+  const factory DashboardPageData({@Default([]) List<DashboardItem> items}) =
+      _DashboardPageData;
+
+  factory DashboardPageData.initialize() {
+    return const DashboardPageData();
+  }
 }
 
 @freezed

@@ -41,6 +41,8 @@ dependencies:
 
   desktop_multi_window: ^0.2.0 # Use the latest version
 
+  dart_scope_functions: ^1.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

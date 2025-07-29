@@ -519,11 +519,7 @@ class __$AddObjectCopyWithImpl<$Res> implements _$AddObjectCopyWith<$Res> {
 
 /// @nodoc
 mixin _$SpacePageState {
-  SpacePageStatus get status;
-  Map<int, SpaceObject> get objects;
-  Matrix4 get transformMatrix;
-  int? get selectedObjectId;
-  Exception? get failure;
+  SpacePageData get data;
 
   /// Create a copy of SpacePageState
   /// with the given fields replaced by the non-null parameter values.
@@ -540,28 +536,15 @@ mixin _$SpacePageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SpacePageState &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other.objects, objects) &&
-            (identical(other.transformMatrix, transformMatrix) ||
-                other.transformMatrix == transformMatrix) &&
-            (identical(other.selectedObjectId, selectedObjectId) ||
-                other.selectedObjectId == selectedObjectId) &&
-            (identical(other.failure, failure) || other.failure == failure));
+            (identical(other.data, data) || other.data == data));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    status,
-    const DeepCollectionEquality().hash(objects),
-    transformMatrix,
-    selectedObjectId,
-    failure,
-  );
+  int get hashCode => Object.hash(runtimeType, data);
 
   @override
   String toString() {
-    return 'SpacePageState(status: $status, objects: $objects, transformMatrix: $transformMatrix, selectedObjectId: $selectedObjectId, failure: $failure)';
+    return 'SpacePageState(data: $data)';
   }
 }
 
@@ -572,13 +555,9 @@ abstract mixin class $SpacePageStateCopyWith<$Res> {
     $Res Function(SpacePageState) _then,
   ) = _$SpacePageStateCopyWithImpl;
   @useResult
-  $Res call({
-    SpacePageStatus status,
-    Map<int, SpaceObject> objects,
-    Matrix4 transformMatrix,
-    int? selectedObjectId,
-    Exception? failure,
-  });
+  $Res call({SpacePageData data});
+
+  $SpacePageDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -593,42 +572,26 @@ class _$SpacePageStateCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? status = null,
-    Object? objects = null,
-    Object? transformMatrix = null,
-    Object? selectedObjectId = freezed,
-    Object? failure = freezed,
-  }) {
+  $Res call({Object? data = null}) {
     return _then(
       _self.copyWith(
-        status:
-            null == status
-                ? _self.status
-                : status // ignore: cast_nullable_to_non_nullable
-                    as SpacePageStatus,
-        objects:
-            null == objects
-                ? _self.objects
-                : objects // ignore: cast_nullable_to_non_nullable
-                    as Map<int, SpaceObject>,
-        transformMatrix:
-            null == transformMatrix
-                ? _self.transformMatrix
-                : transformMatrix // ignore: cast_nullable_to_non_nullable
-                    as Matrix4,
-        selectedObjectId:
-            freezed == selectedObjectId
-                ? _self.selectedObjectId
-                : selectedObjectId // ignore: cast_nullable_to_non_nullable
-                    as int?,
-        failure:
-            freezed == failure
-                ? _self.failure
-                : failure // ignore: cast_nullable_to_non_nullable
-                    as Exception?,
+        data:
+            null == data
+                ? _self.data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as SpacePageData,
       ),
     );
+  }
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SpacePageDataCopyWith<$Res> get data {
+    return $SpacePageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
   }
 }
 
@@ -647,13 +610,680 @@ extension SpacePageStatePatterns on SpacePageState {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_SpacePageState value)? $default, {
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SpacePageStateInitialize value)? initialize,
+    TResult Function(SpacePageStateLoading value)? loading,
+    TResult Function(SpacePageStateSuccess value)? success,
+    TResult Function(SpacePageStateFailure value)? failure,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _SpacePageState() when $default != null:
+      case SpacePageStateInitialize() when initialize != null:
+        return initialize(_that);
+      case SpacePageStateLoading() when loading != null:
+        return loading(_that);
+      case SpacePageStateSuccess() when success != null:
+        return success(_that);
+      case SpacePageStateFailure() when failure != null:
+        return failure(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SpacePageStateInitialize value) initialize,
+    required TResult Function(SpacePageStateLoading value) loading,
+    required TResult Function(SpacePageStateSuccess value) success,
+    required TResult Function(SpacePageStateFailure value) failure,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SpacePageStateInitialize():
+        return initialize(_that);
+      case SpacePageStateLoading():
+        return loading(_that);
+      case SpacePageStateSuccess():
+        return success(_that);
+      case SpacePageStateFailure():
+        return failure(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SpacePageStateInitialize value)? initialize,
+    TResult? Function(SpacePageStateLoading value)? loading,
+    TResult? Function(SpacePageStateSuccess value)? success,
+    TResult? Function(SpacePageStateFailure value)? failure,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SpacePageStateInitialize() when initialize != null:
+        return initialize(_that);
+      case SpacePageStateLoading() when loading != null:
+        return loading(_that);
+      case SpacePageStateSuccess() when success != null:
+        return success(_that);
+      case SpacePageStateFailure() when failure != null:
+        return failure(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SpacePageData data)? initialize,
+    TResult Function(SpacePageData data)? loading,
+    TResult Function(SpacePageData data)? success,
+    TResult Function(SpacePageData data, Exception failure)? failure,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SpacePageStateInitialize() when initialize != null:
+        return initialize(_that.data);
+      case SpacePageStateLoading() when loading != null:
+        return loading(_that.data);
+      case SpacePageStateSuccess() when success != null:
+        return success(_that.data);
+      case SpacePageStateFailure() when failure != null:
+        return failure(_that.data, _that.failure);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SpacePageData data) initialize,
+    required TResult Function(SpacePageData data) loading,
+    required TResult Function(SpacePageData data) success,
+    required TResult Function(SpacePageData data, Exception failure) failure,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SpacePageStateInitialize():
+        return initialize(_that.data);
+      case SpacePageStateLoading():
+        return loading(_that.data);
+      case SpacePageStateSuccess():
+        return success(_that.data);
+      case SpacePageStateFailure():
+        return failure(_that.data, _that.failure);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SpacePageData data)? initialize,
+    TResult? Function(SpacePageData data)? loading,
+    TResult? Function(SpacePageData data)? success,
+    TResult? Function(SpacePageData data, Exception failure)? failure,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SpacePageStateInitialize() when initialize != null:
+        return initialize(_that.data);
+      case SpacePageStateLoading() when loading != null:
+        return loading(_that.data);
+      case SpacePageStateSuccess() when success != null:
+        return success(_that.data);
+      case SpacePageStateFailure() when failure != null:
+        return failure(_that.data, _that.failure);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+class SpacePageStateInitialize implements SpacePageState {
+  SpacePageStateInitialize({required this.data});
+
+  @override
+  final SpacePageData data;
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SpacePageStateInitializeCopyWith<SpacePageStateInitialize> get copyWith =>
+      _$SpacePageStateInitializeCopyWithImpl<SpacePageStateInitialize>(
+        this,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SpacePageStateInitialize &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @override
+  String toString() {
+    return 'SpacePageState.initialize(data: $data)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $SpacePageStateInitializeCopyWith<$Res>
+    implements $SpacePageStateCopyWith<$Res> {
+  factory $SpacePageStateInitializeCopyWith(
+    SpacePageStateInitialize value,
+    $Res Function(SpacePageStateInitialize) _then,
+  ) = _$SpacePageStateInitializeCopyWithImpl;
+  @override
+  @useResult
+  $Res call({SpacePageData data});
+
+  @override
+  $SpacePageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$SpacePageStateInitializeCopyWithImpl<$Res>
+    implements $SpacePageStateInitializeCopyWith<$Res> {
+  _$SpacePageStateInitializeCopyWithImpl(this._self, this._then);
+
+  final SpacePageStateInitialize _self;
+  final $Res Function(SpacePageStateInitialize) _then;
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null}) {
+    return _then(
+      SpacePageStateInitialize(
+        data:
+            null == data
+                ? _self.data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as SpacePageData,
+      ),
+    );
+  }
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SpacePageDataCopyWith<$Res> get data {
+    return $SpacePageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class SpacePageStateLoading implements SpacePageState {
+  SpacePageStateLoading({required this.data});
+
+  @override
+  final SpacePageData data;
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SpacePageStateLoadingCopyWith<SpacePageStateLoading> get copyWith =>
+      _$SpacePageStateLoadingCopyWithImpl<SpacePageStateLoading>(
+        this,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SpacePageStateLoading &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @override
+  String toString() {
+    return 'SpacePageState.loading(data: $data)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $SpacePageStateLoadingCopyWith<$Res>
+    implements $SpacePageStateCopyWith<$Res> {
+  factory $SpacePageStateLoadingCopyWith(
+    SpacePageStateLoading value,
+    $Res Function(SpacePageStateLoading) _then,
+  ) = _$SpacePageStateLoadingCopyWithImpl;
+  @override
+  @useResult
+  $Res call({SpacePageData data});
+
+  @override
+  $SpacePageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$SpacePageStateLoadingCopyWithImpl<$Res>
+    implements $SpacePageStateLoadingCopyWith<$Res> {
+  _$SpacePageStateLoadingCopyWithImpl(this._self, this._then);
+
+  final SpacePageStateLoading _self;
+  final $Res Function(SpacePageStateLoading) _then;
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null}) {
+    return _then(
+      SpacePageStateLoading(
+        data:
+            null == data
+                ? _self.data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as SpacePageData,
+      ),
+    );
+  }
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SpacePageDataCopyWith<$Res> get data {
+    return $SpacePageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class SpacePageStateSuccess implements SpacePageState {
+  SpacePageStateSuccess({required this.data});
+
+  @override
+  final SpacePageData data;
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SpacePageStateSuccessCopyWith<SpacePageStateSuccess> get copyWith =>
+      _$SpacePageStateSuccessCopyWithImpl<SpacePageStateSuccess>(
+        this,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SpacePageStateSuccess &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @override
+  String toString() {
+    return 'SpacePageState.success(data: $data)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $SpacePageStateSuccessCopyWith<$Res>
+    implements $SpacePageStateCopyWith<$Res> {
+  factory $SpacePageStateSuccessCopyWith(
+    SpacePageStateSuccess value,
+    $Res Function(SpacePageStateSuccess) _then,
+  ) = _$SpacePageStateSuccessCopyWithImpl;
+  @override
+  @useResult
+  $Res call({SpacePageData data});
+
+  @override
+  $SpacePageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$SpacePageStateSuccessCopyWithImpl<$Res>
+    implements $SpacePageStateSuccessCopyWith<$Res> {
+  _$SpacePageStateSuccessCopyWithImpl(this._self, this._then);
+
+  final SpacePageStateSuccess _self;
+  final $Res Function(SpacePageStateSuccess) _then;
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null}) {
+    return _then(
+      SpacePageStateSuccess(
+        data:
+            null == data
+                ? _self.data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as SpacePageData,
+      ),
+    );
+  }
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SpacePageDataCopyWith<$Res> get data {
+    return $SpacePageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class SpacePageStateFailure implements SpacePageState {
+  SpacePageStateFailure({required this.data, required this.failure});
+
+  @override
+  final SpacePageData data;
+  final Exception failure;
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SpacePageStateFailureCopyWith<SpacePageStateFailure> get copyWith =>
+      _$SpacePageStateFailureCopyWithImpl<SpacePageStateFailure>(
+        this,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SpacePageStateFailure &&
+            (identical(other.data, data) || other.data == data) &&
+            (identical(other.failure, failure) || other.failure == failure));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data, failure);
+
+  @override
+  String toString() {
+    return 'SpacePageState.failure(data: $data, failure: $failure)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $SpacePageStateFailureCopyWith<$Res>
+    implements $SpacePageStateCopyWith<$Res> {
+  factory $SpacePageStateFailureCopyWith(
+    SpacePageStateFailure value,
+    $Res Function(SpacePageStateFailure) _then,
+  ) = _$SpacePageStateFailureCopyWithImpl;
+  @override
+  @useResult
+  $Res call({SpacePageData data, Exception failure});
+
+  @override
+  $SpacePageDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$SpacePageStateFailureCopyWithImpl<$Res>
+    implements $SpacePageStateFailureCopyWith<$Res> {
+  _$SpacePageStateFailureCopyWithImpl(this._self, this._then);
+
+  final SpacePageStateFailure _self;
+  final $Res Function(SpacePageStateFailure) _then;
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? data = null, Object? failure = null}) {
+    return _then(
+      SpacePageStateFailure(
+        data:
+            null == data
+                ? _self.data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as SpacePageData,
+        failure:
+            null == failure
+                ? _self.failure
+                : failure // ignore: cast_nullable_to_non_nullable
+                    as Exception,
+      ),
+    );
+  }
+
+  /// Create a copy of SpacePageState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SpacePageDataCopyWith<$Res> get data {
+    return $SpacePageDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+mixin _$SpacePageData {
+  String get title;
+  Map<int, SpaceObject> get objects;
+  Matrix4 get transformMatrix;
+  int? get selectedObjectId;
+
+  /// Create a copy of SpacePageData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SpacePageDataCopyWith<SpacePageData> get copyWith =>
+      _$SpacePageDataCopyWithImpl<SpacePageData>(
+        this as SpacePageData,
+        _$identity,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SpacePageData &&
+            (identical(other.title, title) || other.title == title) &&
+            const DeepCollectionEquality().equals(other.objects, objects) &&
+            (identical(other.transformMatrix, transformMatrix) ||
+                other.transformMatrix == transformMatrix) &&
+            (identical(other.selectedObjectId, selectedObjectId) ||
+                other.selectedObjectId == selectedObjectId));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    title,
+    const DeepCollectionEquality().hash(objects),
+    transformMatrix,
+    selectedObjectId,
+  );
+
+  @override
+  String toString() {
+    return 'SpacePageData(title: $title, objects: $objects, transformMatrix: $transformMatrix, selectedObjectId: $selectedObjectId)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $SpacePageDataCopyWith<$Res> {
+  factory $SpacePageDataCopyWith(
+    SpacePageData value,
+    $Res Function(SpacePageData) _then,
+  ) = _$SpacePageDataCopyWithImpl;
+  @useResult
+  $Res call({
+    String title,
+    Map<int, SpaceObject> objects,
+    Matrix4 transformMatrix,
+    int? selectedObjectId,
+  });
+}
+
+/// @nodoc
+class _$SpacePageDataCopyWithImpl<$Res>
+    implements $SpacePageDataCopyWith<$Res> {
+  _$SpacePageDataCopyWithImpl(this._self, this._then);
+
+  final SpacePageData _self;
+  final $Res Function(SpacePageData) _then;
+
+  /// Create a copy of SpacePageData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+    Object? objects = null,
+    Object? transformMatrix = null,
+    Object? selectedObjectId = freezed,
+  }) {
+    return _then(
+      _self.copyWith(
+        title:
+            null == title
+                ? _self.title
+                : title // ignore: cast_nullable_to_non_nullable
+                    as String,
+        objects:
+            null == objects
+                ? _self.objects
+                : objects // ignore: cast_nullable_to_non_nullable
+                    as Map<int, SpaceObject>,
+        transformMatrix:
+            null == transformMatrix
+                ? _self.transformMatrix
+                : transformMatrix // ignore: cast_nullable_to_non_nullable
+                    as Matrix4,
+        selectedObjectId:
+            freezed == selectedObjectId
+                ? _self.selectedObjectId
+                : selectedObjectId // ignore: cast_nullable_to_non_nullable
+                    as int?,
+      ),
+    );
+  }
+}
+
+/// Adds pattern-matching-related methods to [SpacePageData].
+extension SpacePageDataPatterns on SpacePageData {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_SpacePageData value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SpacePageData() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -675,11 +1305,11 @@ extension SpacePageStatePatterns on SpacePageState {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_SpacePageState value) $default,
+    TResult Function(_SpacePageData value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _SpacePageState():
+      case _SpacePageData():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -700,11 +1330,11 @@ extension SpacePageStatePatterns on SpacePageState {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_SpacePageState value)? $default,
+    TResult? Function(_SpacePageData value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _SpacePageState() when $default != null:
+      case _SpacePageData() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -726,24 +1356,22 @@ extension SpacePageStatePatterns on SpacePageState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-      SpacePageStatus status,
+      String title,
       Map<int, SpaceObject> objects,
       Matrix4 transformMatrix,
       int? selectedObjectId,
-      Exception? failure,
     )?
     $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _SpacePageState() when $default != null:
+      case _SpacePageData() when $default != null:
         return $default(
-          _that.status,
+          _that.title,
           _that.objects,
           _that.transformMatrix,
           _that.selectedObjectId,
-          _that.failure,
         );
       case _:
         return orElse();
@@ -766,23 +1394,21 @@ extension SpacePageStatePatterns on SpacePageState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-      SpacePageStatus status,
+      String title,
       Map<int, SpaceObject> objects,
       Matrix4 transformMatrix,
       int? selectedObjectId,
-      Exception? failure,
     )
     $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _SpacePageState():
+      case _SpacePageData():
         return $default(
-          _that.status,
+          _that.title,
           _that.objects,
           _that.transformMatrix,
           _that.selectedObjectId,
-          _that.failure,
         );
       case _:
         throw StateError('Unexpected subclass');
@@ -804,23 +1430,21 @@ extension SpacePageStatePatterns on SpacePageState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-      SpacePageStatus status,
+      String title,
       Map<int, SpaceObject> objects,
       Matrix4 transformMatrix,
       int? selectedObjectId,
-      Exception? failure,
     )?
     $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _SpacePageState() when $default != null:
+      case _SpacePageData() when $default != null:
         return $default(
-          _that.status,
+          _that.title,
           _that.objects,
           _that.transformMatrix,
           _that.selectedObjectId,
-          _that.failure,
         );
       case _:
         return null;
@@ -830,18 +1454,17 @@ extension SpacePageStatePatterns on SpacePageState {
 
 /// @nodoc
 
-class _SpacePageState implements SpacePageState {
-  const _SpacePageState({
-    this.status = SpacePageStatus.initial,
+class _SpacePageData implements SpacePageData {
+  const _SpacePageData({
+    this.title = "",
     final Map<int, SpaceObject> objects = const {},
     required this.transformMatrix,
     this.selectedObjectId,
-    this.failure,
   }) : _objects = objects;
 
   @override
   @JsonKey()
-  final SpacePageStatus status;
+  final String title;
   final Map<int, SpaceObject> _objects;
   @override
   @JsonKey()
@@ -855,91 +1478,85 @@ class _SpacePageState implements SpacePageState {
   final Matrix4 transformMatrix;
   @override
   final int? selectedObjectId;
-  @override
-  final Exception? failure;
 
-  /// Create a copy of SpacePageState
+  /// Create a copy of SpacePageData
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$SpacePageStateCopyWith<_SpacePageState> get copyWith =>
-      __$SpacePageStateCopyWithImpl<_SpacePageState>(this, _$identity);
+  _$SpacePageDataCopyWith<_SpacePageData> get copyWith =>
+      __$SpacePageDataCopyWithImpl<_SpacePageData>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SpacePageState &&
-            (identical(other.status, status) || other.status == status) &&
+            other is _SpacePageData &&
+            (identical(other.title, title) || other.title == title) &&
             const DeepCollectionEquality().equals(other._objects, _objects) &&
             (identical(other.transformMatrix, transformMatrix) ||
                 other.transformMatrix == transformMatrix) &&
             (identical(other.selectedObjectId, selectedObjectId) ||
-                other.selectedObjectId == selectedObjectId) &&
-            (identical(other.failure, failure) || other.failure == failure));
+                other.selectedObjectId == selectedObjectId));
   }
 
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    status,
+    title,
     const DeepCollectionEquality().hash(_objects),
     transformMatrix,
     selectedObjectId,
-    failure,
   );
 
   @override
   String toString() {
-    return 'SpacePageState(status: $status, objects: $objects, transformMatrix: $transformMatrix, selectedObjectId: $selectedObjectId, failure: $failure)';
+    return 'SpacePageData(title: $title, objects: $objects, transformMatrix: $transformMatrix, selectedObjectId: $selectedObjectId)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$SpacePageStateCopyWith<$Res>
-    implements $SpacePageStateCopyWith<$Res> {
-  factory _$SpacePageStateCopyWith(
-    _SpacePageState value,
-    $Res Function(_SpacePageState) _then,
-  ) = __$SpacePageStateCopyWithImpl;
+abstract mixin class _$SpacePageDataCopyWith<$Res>
+    implements $SpacePageDataCopyWith<$Res> {
+  factory _$SpacePageDataCopyWith(
+    _SpacePageData value,
+    $Res Function(_SpacePageData) _then,
+  ) = __$SpacePageDataCopyWithImpl;
   @override
   @useResult
   $Res call({
-    SpacePageStatus status,
+    String title,
     Map<int, SpaceObject> objects,
     Matrix4 transformMatrix,
     int? selectedObjectId,
-    Exception? failure,
   });
 }
 
 /// @nodoc
-class __$SpacePageStateCopyWithImpl<$Res>
-    implements _$SpacePageStateCopyWith<$Res> {
-  __$SpacePageStateCopyWithImpl(this._self, this._then);
+class __$SpacePageDataCopyWithImpl<$Res>
+    implements _$SpacePageDataCopyWith<$Res> {
+  __$SpacePageDataCopyWithImpl(this._self, this._then);
 
-  final _SpacePageState _self;
-  final $Res Function(_SpacePageState) _then;
+  final _SpacePageData _self;
+  final $Res Function(_SpacePageData) _then;
 
-  /// Create a copy of SpacePageState
+  /// Create a copy of SpacePageData
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? status = null,
+    Object? title = null,
     Object? objects = null,
     Object? transformMatrix = null,
     Object? selectedObjectId = freezed,
-    Object? failure = freezed,
   }) {
     return _then(
-      _SpacePageState(
-        status:
-            null == status
-                ? _self.status
-                : status // ignore: cast_nullable_to_non_nullable
-                    as SpacePageStatus,
+      _SpacePageData(
+        title:
+            null == title
+                ? _self.title
+                : title // ignore: cast_nullable_to_non_nullable
+                    as String,
         objects:
             null == objects
                 ? _self._objects
@@ -955,11 +1572,6 @@ class __$SpacePageStateCopyWithImpl<$Res>
                 ? _self.selectedObjectId
                 : selectedObjectId // ignore: cast_nullable_to_non_nullable
                     as int?,
-        failure:
-            freezed == failure
-                ? _self.failure
-                : failure // ignore: cast_nullable_to_non_nullable
-                    as Exception?,
       ),
     );
   }

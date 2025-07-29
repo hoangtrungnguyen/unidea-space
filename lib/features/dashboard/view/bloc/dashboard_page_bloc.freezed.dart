@@ -1327,6 +1327,7 @@ class __$DashboardPageDataCopyWithImpl<$Res>
 
 /// @nodoc
 mixin _$DashboardItem {
+  String get id;
   String get title;
   String get lastEdited;
 
@@ -1345,17 +1346,18 @@ mixin _$DashboardItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DashboardItem &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.lastEdited, lastEdited) ||
                 other.lastEdited == lastEdited));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, lastEdited);
+  int get hashCode => Object.hash(runtimeType, id, title, lastEdited);
 
   @override
   String toString() {
-    return 'DashboardItem(title: $title, lastEdited: $lastEdited)';
+    return 'DashboardItem(id: $id, title: $title, lastEdited: $lastEdited)';
   }
 }
 
@@ -1366,7 +1368,7 @@ abstract mixin class $DashboardItemCopyWith<$Res> {
     $Res Function(DashboardItem) _then,
   ) = _$DashboardItemCopyWithImpl;
   @useResult
-  $Res call({String title, String lastEdited});
+  $Res call({String id, String title, String lastEdited});
 }
 
 /// @nodoc
@@ -1381,9 +1383,18 @@ class _$DashboardItemCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? title = null, Object? lastEdited = null}) {
+  $Res call({
+    Object? id = null,
+    Object? title = null,
+    Object? lastEdited = null,
+  }) {
     return _then(
       _self.copyWith(
+        id:
+            null == id
+                ? _self.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
         title:
             null == title
                 ? _self.title
@@ -1492,13 +1503,13 @@ extension DashboardItemPatterns on DashboardItem {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String title, String lastEdited)? $default, {
+    TResult Function(String id, String title, String lastEdited)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _DashboardItem() when $default != null:
-        return $default(_that.title, _that.lastEdited);
+        return $default(_that.id, _that.title, _that.lastEdited);
       case _:
         return orElse();
     }
@@ -1519,12 +1530,12 @@ extension DashboardItemPatterns on DashboardItem {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String title, String lastEdited) $default,
+    TResult Function(String id, String title, String lastEdited) $default,
   ) {
     final _that = this;
     switch (_that) {
       case _DashboardItem():
-        return $default(_that.title, _that.lastEdited);
+        return $default(_that.id, _that.title, _that.lastEdited);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -1544,12 +1555,12 @@ extension DashboardItemPatterns on DashboardItem {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String title, String lastEdited)? $default,
+    TResult? Function(String id, String title, String lastEdited)? $default,
   ) {
     final _that = this;
     switch (_that) {
       case _DashboardItem() when $default != null:
-        return $default(_that.title, _that.lastEdited);
+        return $default(_that.id, _that.title, _that.lastEdited);
       case _:
         return null;
     }
@@ -1559,8 +1570,14 @@ extension DashboardItemPatterns on DashboardItem {
 /// @nodoc
 
 class _DashboardItem implements DashboardItem {
-  const _DashboardItem({required this.title, required this.lastEdited});
+  const _DashboardItem({
+    required this.id,
+    required this.title,
+    required this.lastEdited,
+  });
 
+  @override
+  final String id;
   @override
   final String title;
   @override
@@ -1579,17 +1596,18 @@ class _DashboardItem implements DashboardItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DashboardItem &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.lastEdited, lastEdited) ||
                 other.lastEdited == lastEdited));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, lastEdited);
+  int get hashCode => Object.hash(runtimeType, id, title, lastEdited);
 
   @override
   String toString() {
-    return 'DashboardItem(title: $title, lastEdited: $lastEdited)';
+    return 'DashboardItem(id: $id, title: $title, lastEdited: $lastEdited)';
   }
 }
 
@@ -1602,7 +1620,7 @@ abstract mixin class _$DashboardItemCopyWith<$Res>
   ) = __$DashboardItemCopyWithImpl;
   @override
   @useResult
-  $Res call({String title, String lastEdited});
+  $Res call({String id, String title, String lastEdited});
 }
 
 /// @nodoc
@@ -1617,9 +1635,18 @@ class __$DashboardItemCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $Res call({Object? title = null, Object? lastEdited = null}) {
+  $Res call({
+    Object? id = null,
+    Object? title = null,
+    Object? lastEdited = null,
+  }) {
     return _then(
       _DashboardItem(
+        id:
+            null == id
+                ? _self.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
         title:
             null == title
                 ? _self.title

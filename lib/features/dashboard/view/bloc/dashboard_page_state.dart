@@ -33,6 +33,7 @@ abstract class DashboardPageData with _$DashboardPageData {
 @freezed
 abstract class DashboardItem with _$DashboardItem {
   const factory DashboardItem({
+    required String id,
     required String title,
     required String lastEdited,
   }) = _DashboardItem;
@@ -42,10 +43,12 @@ class MockDashboardItemData {
   // If you need more variety or specific scenarios:
   static List<DashboardItem> get itemsWithOldDates => [
     DashboardItem(
+      id: "id 1",
       title: "Archived Document A",
       lastEdited: DateTime(2022, 5, 15).toString(),
     ),
     DashboardItem(
+      id: "Id 2",
       title: "Old Project Plan",
       lastEdited: DateTime(2021, 1, 20).toString(),
     ),

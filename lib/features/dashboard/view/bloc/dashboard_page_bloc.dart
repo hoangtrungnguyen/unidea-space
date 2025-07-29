@@ -25,7 +25,11 @@ class DashboardPageBloc extends Bloc<DashboardPageEvent, DashboardPageState> {
     final data = await _dashboardRepository.getAll();
     final items =
         data.map((e) {
-            return DashboardItem(title: e.name, lastEdited: e.lastEdited);
+            return DashboardItem(
+              id: e.id,
+              title: e.name,
+              lastEdited: e.lastEdited,
+            );
           }).toList()
           ..addAll(MockDashboardItemData.itemsWithOldDates);
 
@@ -43,7 +47,11 @@ class DashboardPageBloc extends Bloc<DashboardPageEvent, DashboardPageState> {
         state.data.copyWith(
           items: [
             ...state.data.items,
-            DashboardItem(title: result.name, lastEdited: result.lastEdited),
+            DashboardItem(
+              id: result.id,
+              title: result.name,
+              lastEdited: result.lastEdited,
+            ),
           ],
         ),
       ),

@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ideascape/features/space/view/pages/space_page.dart';
 
 class ProjectSpaceCard extends StatelessWidget {
   final String title;
   final String lastEdited;
   final Color color;
+  final String id;
 
   const ProjectSpaceCard({
     super.key,
     required this.title,
     required this.lastEdited,
+    required this.id,
     this.color = Colors.white,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push('/canvas-space'),
+      onTap:
+          () => context.pushNamed(
+            IdeaSpace.routeName,
+            pathParameters: {"id": id},
+          ),
       borderRadius: BorderRadius.circular(8.0),
       child: Card(
         elevation: 1.5,

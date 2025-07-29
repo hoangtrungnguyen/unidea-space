@@ -9,17 +9,19 @@ import 'package:ideascape/features/space/view/widgets/toolbar.dart';
 
 import '../constant.dart';
 
-class IdeaScape extends StatelessWidget {
-  static const String routePath = '/canvas-space';
+class IdeaSpace extends StatelessWidget {
+  static const String routePath = '/idea-space/:id';
   static const String routeName = 'Space';
 
-  const IdeaScape({super.key});
+  const IdeaSpace({super.key, required this.id});
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => SpacePageBloc()),
+        BlocProvider(create: (_) => SpacePageBloc(id)),
         BlocProvider(create: (context) => ToolbarBloc()),
       ],
       child: SpacePage(),
@@ -59,7 +61,14 @@ class _SpacePageState extends State<SpacePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text("Collaboration Space"),
+        title: BlocSelector<SpacePageBloc, SpacePageState, String>(
+          selector: (state) {
+            return state.data.title;
+          },
+          builder: (context, title) {
+            return Text(title);
+          },
+        ),
         actions: [
           IconButton(icon: const Icon(Icons.undo), onPressed: () {}),
           IconButton(icon: const Icon(Icons.share), onPressed: () {}),
@@ -71,67 +80,71 @@ class _SpacePageState extends State<SpacePage> {
       ),
       body: BlocConsumer<SpacePageBloc, SpacePageState>(
         builder: (context, state) {
-          if (state.status == SpacePageStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state.status == SpacePageStatus.failure) {
-            return const Center(child: Text("Error"));
-          }
-
-          return Stack(
-            children: [
-              // The main interactive canvas area
-              GestureDetector(
-                child: Stack(
-                  children: [
-                    InteractiveViewer(
-                      transformationController: _controller,
-                      boundaryMargin: const EdgeInsets.all(double.infinity),
-                      // panEnabled: _selectedTool == SpaceTool.pan,
-                      minScale: 1,
-                      maxScale: 100.0,
-                      child: AnimatedBuilder(
-                        animation: _controller,
-                        builder: (BuildContext context, Widget? child) {
-                          return Stack(
-                            children: [
-                              CustomPaint(
-                                size: MediaQuery.of(context).size * 15,
-                                painter: GridPainter(
-                                  transformationController: _controller,
-                                ),
-                              ),
-                              CustomPaint(
-                                // Set a size for the canvas world.
-                                size: Size(defaultWidth, defaultHeight),
-                                // The painter gets the objects and the current transform matrix from the state.
-                                painter: ObjectPainter(
-                                  objects:
-                                      state.objects.values
-                                          .whereType<ShapeObject>()
-                                          .toList(),
-                                  transform: state.transformMatrix,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+          switch (state) {
+            case SpacePageStateFailure():
+              return const Center(child: Text("failure"));
+            case SpacePageStateInitialize():
+              return const Center(child: Text("init"));
+            case SpacePageStateLoading():
+              return const Center(child: CircularProgressIndicator());
+            case SpacePageStateSuccess():
+              return Stack(
+                children: [
+                  // The main interactive canvas area
+                  GestureDetector(
+                    child: Stack(
+                      children: [
+                        InteractiveViewer(
+                          transformationController: _controller,
+                          boundaryMargin: const EdgeInsets.all(double.infinity),
+                          // panEnabled: _selectedTool == SpaceTool.pan,
+                          minScale: 1,
+                          maxScale: 100.0,
+                          child: AnimatedBuilder(
+                            animation: _controller,
+                            builder: (BuildContext context, Widget? child) {
+                              return Stack(
+                                children: [
+                                  CustomPaint(
+                                    size: MediaQuery.of(context).size * 15,
+                                    painter: GridPainter(
+                                      transformationController: _controller,
+                                    ),
+                                  ),
+                                  CustomPaint(
+                                    // Set a size for the canvas world.
+                                    size: Size(defaultWidth, defaultHeight),
+                                    // The painter gets the objects and the current transform matrix from the state.
+                                    painter: ObjectPainter(
+                                      objects:
+                                          state.data.objects.values
+                                              .whereType<ShapeObject>()
+                                              .toList(),
+                                      transform: state.data.transformMatrix,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-
-              // Left-side main toolbar
-              Positioned(top: 16, left: 16, child: ToolBar()),
-            ],
-          );
+                  ),
+                  // Left-side main toolbar
+                  Positioned(top: 16, left: 16, child: ToolBar()),
+                ],
+              );
+            default:
+              return Center(child: Text("Failure"));
+          }
         },
         listenWhen: (p, c) {
-          return p.transformMatrix != c.transformMatrix;
+          return p.data.transformMatrix != c.data.transformMatrix;
         },
+
         listener: (BuildContext context, SpacePageState state) {
-          _controller.value = state.transformMatrix;
+          _controller.value = state.data.transformMatrix;
         },
       ),
     );

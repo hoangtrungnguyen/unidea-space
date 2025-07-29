@@ -31,9 +31,12 @@ mixin AppRouter {
                   const DashboardPageBlocProvider(),
         ),
         GoRoute(
-          path: IdeaScape.routePath,
-          builder:
-              (BuildContext context, GoRouterState state) => const IdeaScape(),
+          path: IdeaSpace.routePath,
+          name: IdeaSpace.routeName,
+          builder: (BuildContext context, GoRouterState state) {
+            final String id = state.pathParameters["id"]!.toString();
+            return IdeaSpace(key: ValueKey(id), id: id);
+          },
         ),
         GoRoute(
           path: '/demo-gridview',

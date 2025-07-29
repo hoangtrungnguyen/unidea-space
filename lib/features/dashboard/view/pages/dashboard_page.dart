@@ -23,7 +23,7 @@ class DashboardPageBlocProvider extends StatelessWidget {
             listener: (context, state) {
               switch (state) {
                 case DashboardPageStateCreatedSpaceSuccess():
-                  context.push(IdeaScape.routePath);
+                  context.push(IdeaSpace.routePath);
                   break;
               }
             },
@@ -58,7 +58,6 @@ class DashboardPage extends StatelessWidget {
         children: [
           // Sidebar Navigation
           const Sidebar(),
-
           // Main Content Area
           Expanded(
             child: Column(
@@ -104,6 +103,7 @@ class DashboardPage extends StatelessWidget {
                           itemCount: state.data.items.length,
                           itemBuilder: (context, index) {
                             return ProjectSpaceCard(
+                              id: state.data.items[index].id,
                               title: state.data.items[index].title,
                               lastEdited: state.data.items[index].lastEdited,
                             );

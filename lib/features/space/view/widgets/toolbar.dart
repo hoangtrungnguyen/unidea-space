@@ -72,7 +72,11 @@ class ToolBar extends StatelessWidget {
         color: isSelected ? Theme.of(context).primaryColor : Colors.grey[700],
       ),
       onPressed: () {
-        context.read<ToolbarBloc>().add(ToolbarEvent.selected(tool));
+        if (isSelected) {
+          context.read<ToolbarBloc>().add(ToolbarEvent.toDefault());
+        } else {
+          context.read<ToolbarBloc>().add(ToolbarEvent.selected(tool));
+        }
       },
       tooltip: tool.name.toUpperCase(),
       style: ButtonStyle(

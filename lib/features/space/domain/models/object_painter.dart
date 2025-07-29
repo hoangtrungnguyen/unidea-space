@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'objects/space_object.dart';
 
 class ObjectPainter extends CustomPainter {
-  final List<ShapeObject> objects;
+  final List<SpaceObject> objects;
   final Matrix4 transform;
 
   ObjectPainter({required this.objects, required this.transform});
@@ -28,8 +28,12 @@ class ObjectPainter extends CustomPainter {
 
     final visibleObjects = objects;
 
-    for (final object in visibleObjects) {
+    for (final object in visibleObjects.whereType<ShapeObject>()) {
       canvas.drawRect(object.rect, object.paint);
+    }
+
+    for (final object in visibleObjects.whereType<PathObject>()) {
+      canvas.drawPath(object.drawingPath.path, object.drawingPath.paint);
     }
 
     // Optional: Draw a border around the visible area for debugging.

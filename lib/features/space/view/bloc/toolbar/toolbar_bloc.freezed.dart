@@ -13,67 +13,24 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ToolbarEvent {
-  SpaceTool get tool;
-
-  /// Create a copy of ToolbarEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $ToolbarEventCopyWith<ToolbarEvent> get copyWith =>
-      _$ToolbarEventCopyWithImpl<ToolbarEvent>(
-        this as ToolbarEvent,
-        _$identity,
-      );
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ToolbarEvent &&
-            (identical(other.tool, tool) || other.tool == tool));
+        (other.runtimeType == runtimeType && other is ToolbarEvent);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, tool);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   String toString() {
-    return 'ToolbarEvent(tool: $tool)';
+    return 'ToolbarEvent()';
   }
 }
 
 /// @nodoc
-abstract mixin class $ToolbarEventCopyWith<$Res> {
-  factory $ToolbarEventCopyWith(
-    ToolbarEvent value,
-    $Res Function(ToolbarEvent) _then,
-  ) = _$ToolbarEventCopyWithImpl;
-  @useResult
-  $Res call({SpaceTool tool});
-}
-
-/// @nodoc
-class _$ToolbarEventCopyWithImpl<$Res> implements $ToolbarEventCopyWith<$Res> {
-  _$ToolbarEventCopyWithImpl(this._self, this._then);
-
-  final ToolbarEvent _self;
-  final $Res Function(ToolbarEvent) _then;
-
-  /// Create a copy of ToolbarEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? tool = null}) {
-    return _then(
-      _self.copyWith(
-        tool:
-            null == tool
-                ? _self.tool
-                : tool // ignore: cast_nullable_to_non_nullable
-                    as SpaceTool,
-      ),
-    );
-  }
+class $ToolbarEventCopyWith<$Res> {
+  $ToolbarEventCopyWith(ToolbarEvent _, $Res Function(ToolbarEvent) __);
 }
 
 /// Adds pattern-matching-related methods to [ToolbarEvent].
@@ -93,12 +50,15 @@ extension ToolbarEventPatterns on ToolbarEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Selected value)? selected,
+    TResult Function(_ToDefault value)? toDefault,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Selected() when selected != null:
         return selected(_that);
+      case _ToDefault() when toDefault != null:
+        return toDefault(_that);
       case _:
         return orElse();
     }
@@ -120,11 +80,14 @@ extension ToolbarEventPatterns on ToolbarEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Selected value) selected,
+    required TResult Function(_ToDefault value) toDefault,
   }) {
     final _that = this;
     switch (_that) {
       case _Selected():
         return selected(_that);
+      case _ToDefault():
+        return toDefault(_that);
     }
   }
 
@@ -143,11 +106,14 @@ extension ToolbarEventPatterns on ToolbarEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Selected value)? selected,
+    TResult? Function(_ToDefault value)? toDefault,
   }) {
     final _that = this;
     switch (_that) {
       case _Selected() when selected != null:
         return selected(_that);
+      case _ToDefault() when toDefault != null:
+        return toDefault(_that);
       case _:
         return null;
     }
@@ -168,12 +134,15 @@ extension ToolbarEventPatterns on ToolbarEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SpaceTool tool)? selected,
+    TResult Function()? toDefault,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Selected() when selected != null:
         return selected(_that.tool);
+      case _ToDefault() when toDefault != null:
+        return toDefault();
       case _:
         return orElse();
     }
@@ -195,11 +164,14 @@ extension ToolbarEventPatterns on ToolbarEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(SpaceTool tool) selected,
+    required TResult Function() toDefault,
   }) {
     final _that = this;
     switch (_that) {
       case _Selected():
         return selected(_that.tool);
+      case _ToDefault():
+        return toDefault();
     }
   }
 
@@ -218,11 +190,14 @@ extension ToolbarEventPatterns on ToolbarEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SpaceTool tool)? selected,
+    TResult? Function()? toDefault,
   }) {
     final _that = this;
     switch (_that) {
       case _Selected() when selected != null:
         return selected(_that.tool);
+      case _ToDefault() when toDefault != null:
+        return toDefault();
       case _:
         return null;
     }
@@ -234,12 +209,10 @@ extension ToolbarEventPatterns on ToolbarEvent {
 class _Selected implements ToolbarEvent {
   const _Selected(this.tool);
 
-  @override
   final SpaceTool tool;
 
   /// Create a copy of ToolbarEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   _$SelectedCopyWith<_Selected> get copyWith =>
@@ -267,7 +240,6 @@ abstract mixin class _$SelectedCopyWith<$Res>
     implements $ToolbarEventCopyWith<$Res> {
   factory _$SelectedCopyWith(_Selected value, $Res Function(_Selected) _then) =
       __$SelectedCopyWithImpl;
-  @override
   @useResult
   $Res call({SpaceTool tool});
 }
@@ -281,7 +253,6 @@ class __$SelectedCopyWithImpl<$Res> implements _$SelectedCopyWith<$Res> {
 
   /// Create a copy of ToolbarEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @pragma('vm:prefer-inline')
   $Res call({Object? tool = null}) {
     return _then(
@@ -296,8 +267,41 @@ class __$SelectedCopyWithImpl<$Res> implements _$SelectedCopyWith<$Res> {
 }
 
 /// @nodoc
+
+class _ToDefault implements ToolbarEvent {
+  const _ToDefault();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ToDefault);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'ToolbarEvent.toDefault()';
+  }
+}
+
+/// @nodoc
+class _$ToDefaultCopyWith<$Res> implements $ToolbarEventCopyWith<$Res> {
+  _$ToDefaultCopyWith(_ToDefault _, $Res Function(_ToDefault) __);
+}
+
+/// @nodoc
+class __$ToDefaultCopyWithImpl<$Res> implements _$ToDefaultCopyWith<$Res> {
+  __$ToDefaultCopyWithImpl(this._self, this._then);
+
+  final _ToDefault _self;
+  final $Res Function(_ToDefault) _then;
+}
+
+/// @nodoc
 mixin _$ToolbarState {
-  SpaceTool? get tool;
+  SpaceTool get tool;
 
   /// Create a copy of ToolbarState
   /// with the given fields replaced by the non-null parameter values.
@@ -333,7 +337,7 @@ abstract mixin class $ToolbarStateCopyWith<$Res> {
     $Res Function(ToolbarState) _then,
   ) = _$ToolbarStateCopyWithImpl;
   @useResult
-  $Res call({SpaceTool? tool});
+  $Res call({SpaceTool tool});
 }
 
 /// @nodoc
@@ -347,14 +351,14 @@ class _$ToolbarStateCopyWithImpl<$Res> implements $ToolbarStateCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? tool = freezed}) {
+  $Res call({Object? tool = null}) {
     return _then(
       _self.copyWith(
         tool:
-            freezed == tool
+            null == tool
                 ? _self.tool
                 : tool // ignore: cast_nullable_to_non_nullable
-                    as SpaceTool?,
+                    as SpaceTool,
       ),
     );
   }
@@ -453,7 +457,7 @@ extension ToolbarStatePatterns on ToolbarState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(SpaceTool? tool)? $default, {
+    TResult Function(SpaceTool tool)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
@@ -480,7 +484,7 @@ extension ToolbarStatePatterns on ToolbarState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(SpaceTool? tool) $default,
+    TResult Function(SpaceTool tool) $default,
   ) {
     final _that = this;
     switch (_that) {
@@ -505,7 +509,7 @@ extension ToolbarStatePatterns on ToolbarState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(SpaceTool? tool)? $default,
+    TResult? Function(SpaceTool tool)? $default,
   ) {
     final _that = this;
     switch (_that) {
@@ -520,10 +524,11 @@ extension ToolbarStatePatterns on ToolbarState {
 /// @nodoc
 
 class _ToolbarState implements ToolbarState {
-  _ToolbarState({this.tool});
+  _ToolbarState({this.tool = SpaceTool.pan});
 
   @override
-  final SpaceTool? tool;
+  @JsonKey()
+  final SpaceTool tool;
 
   /// Create a copy of ToolbarState
   /// with the given fields replaced by the non-null parameter values.
@@ -559,7 +564,7 @@ abstract mixin class _$ToolbarStateCopyWith<$Res>
   ) = __$ToolbarStateCopyWithImpl;
   @override
   @useResult
-  $Res call({SpaceTool? tool});
+  $Res call({SpaceTool tool});
 }
 
 /// @nodoc
@@ -574,14 +579,14 @@ class __$ToolbarStateCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $Res call({Object? tool = freezed}) {
+  $Res call({Object? tool = null}) {
     return _then(
       _ToolbarState(
         tool:
-            freezed == tool
+            null == tool
                 ? _self.tool
                 : tool // ignore: cast_nullable_to_non_nullable
-                    as SpaceTool?,
+                    as SpaceTool,
       ),
     );
   }

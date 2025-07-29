@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -46,35 +48,34 @@ class SpacePageBloc extends Bloc<SpacePageEvent, SpacePageState> {
     try {
       emit(SpacePageState.loading(data: state.data));
       final data = await _spaceViewRepository.findById(id);
-      // final random = Random();
+      final random = Random();
       final Map<int, ShapeObject> generatedObjects = {};
-      // const int objectCount = 10000; // Let's manage 10,000 objects!
-      // const double worldSize = defaultWidth;
-      // for (int i = 0; i < objectCount; i++) {
-      //   final id = nextUniqueId;
-      //
-      //   final paint =
-      //       Paint()
-      //         ..color = Color.fromRGBO(
-      //           random.nextInt(255),
-      //           random.nextInt(255),
-      //           random.nextInt(255),
-      //           1,
-      //         )
-      //         ..style = PaintingStyle.fill;
-      //
-      //   generatedObjects[id] = ShapeObject(
-      //     id: id,
-      //     paint: paint,
-      //     rect: Rect.fromLTWH(
-      //       random.nextDouble() * worldSize,
-      //       random.nextDouble() * worldSize,
-      //       50 + random.nextDouble() * 50,
-      //       50 + random.nextDouble() * 50,
-      //     ),
-      //     type: ShapeType.rectangle,
-      //   );
-      // }
+      const int objectCount = 10000; // Let's manage 10,000 objects!
+      const double worldSize = defaultWidth;
+      for (int i = 0; i < objectCount; i++) {
+        final id = nextUniqueId;
+        final paint =
+            Paint()
+              ..color = Color.fromRGBO(
+                random.nextInt(255),
+                random.nextInt(255),
+                random.nextInt(255),
+                1,
+              )
+              ..style = PaintingStyle.fill;
+
+        generatedObjects[id] = ShapeObject(
+          id: id,
+          paint: paint,
+          rect: Rect.fromLTWH(
+            random.nextDouble() * worldSize,
+            random.nextDouble() * worldSize,
+            50 + random.nextDouble() * 50,
+            50 + random.nextDouble() * 50,
+          ),
+          type: ShapeType.rectangle,
+        );
+      }
 
       emit(
         SpacePageState.success(

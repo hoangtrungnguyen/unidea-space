@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideascape/features/space/domain/models/grid_painter.dart';
 import 'package:ideascape/features/space/domain/models/object_painter.dart';
 import 'package:ideascape/features/space/domain/models/objects/space_object.dart';
+import 'package:ideascape/features/space/domain/models/space_tools.dart';
 import 'package:ideascape/features/space/view/bloc/space_page_bloc.dart';
 import 'package:ideascape/features/space/view/bloc/toolbar/toolbar_bloc.dart';
 import 'package:ideascape/features/space/view/widgets/toolbar.dart';
@@ -78,74 +79,125 @@ class _SpacePageState extends State<SpacePage> {
           ),
         ],
       ),
-      body: BlocConsumer<SpacePageBloc, SpacePageState>(
-        builder: (context, state) {
-          switch (state) {
-            case SpacePageStateFailure():
-              return const Center(child: Text("failure"));
-            case SpacePageStateInitialize():
-              return const Center(child: Text("init"));
-            case SpacePageStateLoading():
-              return const Center(child: CircularProgressIndicator());
-            case SpacePageStateSuccess():
-              return Stack(
-                children: [
-                  // The main interactive canvas area
-                  GestureDetector(
-                    child: Stack(
-                      children: [
-                        InteractiveViewer(
-                          transformationController: _controller,
-                          boundaryMargin: const EdgeInsets.all(double.infinity),
-                          // panEnabled: _selectedTool == SpaceTool.pan,
-                          minScale: 1,
-                          maxScale: 100.0,
-                          child: AnimatedBuilder(
-                            animation: _controller,
-                            builder: (BuildContext context, Widget? child) {
-                              return Stack(
-                                children: [
-                                  CustomPaint(
-                                    size: MediaQuery.of(context).size * 15,
-                                    painter: GridPainter(
-                                      transformationController: _controller,
-                                    ),
-                                  ),
-                                  CustomPaint(
-                                    // Set a size for the canvas world.
-                                    size: Size(defaultWidth, defaultHeight),
-                                    // The painter gets the objects and the current transform matrix from the state.
-                                    painter: ObjectPainter(
-                                      objects:
-                                          state.data.objects.values
-                                              .whereType<ShapeObject>()
-                                              .toList(),
-                                      transform: state.data.transformMatrix,
-                                    ),
-                                  ),
-                                ],
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<SpacePageBloc, SpacePageState>(
+            listenWhen: (p, c) {
+              return p.data.transformMatrix != c.data.transformMatrix;
+            },
+            listener: (BuildContext context, SpacePageState state) {
+              _controller.value = state.data.transformMatrix;
+            },
+          ),
+        ],
+        child: BlocBuilder<SpacePageBloc, SpacePageState>(
+          buildWhen: (p, c) {
+            return p != c;
+          },
+          builder: (context, state) {
+            switch (state) {
+              case SpacePageStateFailure():
+                return const Center(child: Text("failure"));
+              case SpacePageStateInitialize():
+                return const Center(child: Text("init"));
+              case SpacePageStateLoading():
+                return const Center(child: CircularProgressIndicator());
+              case SpacePageStateSuccess():
+                return Stack(
+                  children: [
+                    // The main interactive canvas area
+                    GestureDetector(
+                      child: Stack(
+                        children: [
+                          BlocBuilder<ToolbarBloc, ToolbarState>(
+                            buildWhen: (p, c) {
+                              return p.tool != c.tool;
+                            },
+                            builder: (context, state) {
+                              return InteractiveViewer(
+                                panEnabled: state.panEnabled,
+                                transformationController: _controller,
+                                boundaryMargin: const EdgeInsets.all(
+                                  double.infinity,
+                                ),
+                                // panEnabled: _selectedTool == SpaceTool.pan,
+                                minScale: 1,
+                                maxScale: 100.0,
+                                child: AnimatedBuilder(
+                                  animation: _controller,
+                                  builder: (
+                                    BuildContext context,
+                                    Widget? child,
+                                  ) {
+                                    return GestureDetector(
+                                      onPanStart:
+                                          state.panEnabled
+                                              ? null
+                                              : (details) {},
+                                      child: Stack(
+                                        children: [
+                                          CustomPaint(
+                                            size:
+                                                MediaQuery.of(context).size *
+                                                15,
+                                            painter: GridPainter(
+                                              transformationController:
+                                                  _controller,
+                                            ),
+                                          ),
+                                          BlocBuilder<
+                                            SpacePageBloc,
+                                            SpacePageState
+                                          >(
+                                            buildWhen: (p, c) {
+                                              return p.data.transformMatrix !=
+                                                      c.data.transformMatrix ||
+                                                  p.data.objects !=
+                                                      c.data.objects;
+                                            },
+                                            builder: (context, state) {
+                                              return CustomPaint(
+                                                // Set a size for the canvas world.
+                                                size: Size(
+                                                  defaultWidth,
+                                                  defaultHeight,
+                                                ),
+                                                // The painter gets the objects and the current transform matrix from the state.
+                                                painter: ObjectPainter(
+                                                  objects:
+                                                      state.data.objects.values
+                                                          .whereType<
+                                                            ShapeObject
+                                                          >()
+                                                          .toList(),
+                                                  transform:
+                                                      state
+                                                          .data
+                                                          .transformMatrix,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
                               );
                             },
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  // Left-side main toolbar
-                  Positioned(top: 16, left: 16, child: ToolBar()),
-                ],
-              );
-            default:
-              return Center(child: Text("Failure"));
-          }
-        },
-        listenWhen: (p, c) {
-          return p.data.transformMatrix != c.data.transformMatrix;
-        },
-
-        listener: (BuildContext context, SpacePageState state) {
-          _controller.value = state.data.transformMatrix;
-        },
+                    // Left-side main toolbar
+                    Positioned(top: 16, left: 16, child: ToolBar()),
+                  ],
+                );
+              default:
+                return Center(child: Text("Failure"));
+            }
+          },
+        ),
       ),
     );
   }
@@ -159,4 +211,8 @@ class _SpacePageState extends State<SpacePage> {
   void _onPanStart(DragStartDetails details) {}
 
   void _onHorizontalDragStart(DragStartDetails details) {}
+}
+
+extension on ToolbarState {
+  get panEnabled => this.tool == SpaceTool.pan;
 }

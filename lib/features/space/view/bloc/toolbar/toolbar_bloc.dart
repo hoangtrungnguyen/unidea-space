@@ -11,9 +11,14 @@ part 'toolbar_state.dart';
 class ToolbarBloc extends Bloc<ToolbarEvent, ToolbarState> {
   ToolbarBloc() : super(ToolbarState()) {
     on<_Selected>(_onSelected);
+    on<_ToDefault>(_onToDefault);
   }
 
   FutureOr<void> _onSelected(_Selected event, Emitter<ToolbarState> emit) {
     emit(state.copyWith(tool: event.tool));
+  }
+
+  FutureOr<void> _onToDefault(_ToDefault event, Emitter<ToolbarState> emit) {
+    emit(ToolbarState());
   }
 }

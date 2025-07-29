@@ -4,6 +4,7 @@ import 'package:ideascape/app/view/bloc/auth/auth_bloc.dart';
 import 'package:ideascape/features/dashboard/view/pages/dashboard_page.dart';
 import 'package:ideascape/features/demo/grid_demo_page.dart';
 import 'package:ideascape/features/home/home.dart' show HomePage;
+import 'package:ideascape/features/space/view/pages/draw_path_space_demo_page.dart';
 import 'package:ideascape/features/space/view/pages/space_page.dart';
 
 import 'splash_page.dart';
@@ -11,7 +12,7 @@ import 'splash_page.dart';
 mixin AppRouter {
   GoRouter buildRouter(AuthBloc authBloc) {
     return GoRouter(
-      initialLocation: '/dashboard',
+      initialLocation: SpaceDemoPage.routePath,
       routes: <RouteBase>[
         GoRoute(
           path: '/splash',
@@ -42,6 +43,12 @@ mixin AppRouter {
           path: '/demo-gridview',
           builder: (context, state) {
             return GridInteractionDemo();
+          },
+        ),
+        GoRoute(
+          path: SpaceDemoPage.routePath,
+          builder: (context, state) {
+            return SpaceDemoPage();
           },
         ),
       ],

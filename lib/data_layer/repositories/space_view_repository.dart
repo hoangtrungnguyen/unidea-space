@@ -8,6 +8,7 @@ class SpaceViewRepository {
   SpaceViewRepository(this._restApiSource);
 
   Future<SpaceDto?> findById(String id) async {
+    return SpaceDto(id: 'sdfs', name: "Test");
     final response = await _restApiSource.get("/space/${id}");
     if (response.data != null) {
       return SpaceDto.fromJson(response.data as Map<String, dynamic>);

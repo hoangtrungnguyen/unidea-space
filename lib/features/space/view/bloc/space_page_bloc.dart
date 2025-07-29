@@ -8,6 +8,7 @@ import 'package:ideascape/data_layer/repositories/space_view_repository.dart';
 import 'package:ideascape/domain/failure.dart';
 import 'package:ideascape/features/space/domain/models/objects/space_object.dart';
 import 'package:ideascape/features/space/view/constant.dart';
+import 'package:ideascape/utils/transform.dart';
 
 part 'space_page_bloc.freezed.dart';
 part 'space_page_event.dart';
@@ -32,13 +33,18 @@ class SpacePageBloc extends Bloc<SpacePageEvent, SpacePageState> {
 
     on<_ObjectDragged>((event, emit) {});
 
-    on<_SpaceTransformUpdated>(_onSpaceTransformUpdated);
+    on<_SpaceTransformUpdated>(
+      _onSpaceTransformUpdated,
+      transformer: customDebounce(const Duration(milliseconds: 16)),
+    );
   }
 
   void _onSpaceTransformUpdated(
     _SpaceTransformUpdated event,
     Emitter<SpacePageState> emit,
   ) {
+    talker.info(event.matrix.toString());
+
     emit(
       state.copyWith(data: state.data.copyWith(transformMatrix: event.matrix)),
     );
@@ -50,7 +56,7 @@ class SpacePageBloc extends Bloc<SpacePageEvent, SpacePageState> {
       final data = await _spaceViewRepository.findById(id);
       final random = Random();
       final Map<int, ShapeObject> generatedObjects = {};
-      const int objectCount = 10000; // Let's manage 10,000 objects!
+      const int objectCount = 100000; // Let's manage 10,000 objects!
       const double worldSize = defaultWidth;
       for (int i = 0; i < objectCount; i++) {
         final id = nextUniqueId;

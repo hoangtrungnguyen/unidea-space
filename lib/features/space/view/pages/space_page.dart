@@ -54,6 +54,12 @@ class _SpacePageState extends State<SpacePage> {
       context.read<SpacePageBloc>().add(
         SpacePageEvent.initialize(_controller.value),
       );
+
+      _controller.addListener(() {
+        context.read<SpacePageBloc>().add(
+          SpacePageEvent.spaceTransformUpdated(_controller.value),
+        );
+      });
     });
   }
 
@@ -120,6 +126,7 @@ class _SpacePageState extends State<SpacePage> {
                                 boundaryMargin: const EdgeInsets.all(
                                   double.infinity,
                                 ),
+
                                 // panEnabled: _selectedTool == SpaceTool.pan,
                                 minScale: 1,
                                 maxScale: 100.0,
@@ -205,6 +212,7 @@ class _SpacePageState extends State<SpacePage> {
   @override
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 

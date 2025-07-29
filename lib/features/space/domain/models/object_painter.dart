@@ -22,18 +22,18 @@ class ObjectPainter extends CustomPainter {
     // // In a real-world app with millions of objects, you would use a
     // // spatial partitioning data structure (like a Quadtree) to get this
     // // list of visible objects in O(log n) time, instead of iterating.
-    // final visibleObjects = objects.where(
-    //   (obj) => obj.rect.overlaps(visibleRect),
-    // );
+    final visibleObjects = objects.where(
+      (obj) => obj.rect.overlaps(visibleRect),
+    );
 
-    final visibleObjects = objects;
+    // final visibleObjects = objects;
 
     for (final object in visibleObjects.whereType<ShapeObject>()) {
       canvas.drawRect(object.rect, object.paint);
     }
 
     for (final object in visibleObjects.whereType<PathObject>()) {
-      canvas.drawPath(object.drawingPath.path, object.drawingPath.paint);
+      canvas.drawPath(object.path, object.paint);
     }
 
     // Optional: Draw a border around the visible area for debugging.
@@ -48,11 +48,14 @@ class ObjectPainter extends CustomPainter {
   Rect _calculateVisibleRect(Canvas canvas, Size size) {
     final invertedMatrix = Matrix4.inverted(transform);
     // Get the top-left corner of the screen in canvas coordinates.
-    final topLeft = MatrixUtils.transformPoint(invertedMatrix, Offset.zero);
+    final topLeft = MatrixUtils.transformPoint(
+      invertedMatrix,
+      Offset(-300, -300),
+    );
     // Get the bottom-right corner of the screen in canvas coordinates.
     final bottomRight = MatrixUtils.transformPoint(
       invertedMatrix,
-      size.bottomRight(Offset.zero),
+      size.bottomRight(Offset(300, 300)),
     );
 
     // Create a rectangle representing the visible area.

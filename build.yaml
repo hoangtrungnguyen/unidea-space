@@ -7,6 +7,7 @@ targets:
             - lib/**/dto/**
             - lib/**/cubit/**
             - lib/**/bloc/**
+            - lib/**/models/**
             - lib/business_logic/models/**
           exclude:
             - lib/test/

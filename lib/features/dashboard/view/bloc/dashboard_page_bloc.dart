@@ -22,7 +22,8 @@ class DashboardPageBloc extends Bloc<DashboardPageEvent, DashboardPageState> {
     Emitter<DashboardPageState> emit,
   ) async {
     emit(DashboardPageState.loading(state.data));
-    final data = await _dashboardRepository.getAll();
+    // final data = await _dashboardRepository.getAll();
+    final data = [];
     final items =
         data.map((e) {
             return DashboardItem(

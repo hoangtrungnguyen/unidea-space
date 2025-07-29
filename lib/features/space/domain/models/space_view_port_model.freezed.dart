@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'drawing_path.dart';
+part of 'space_view_port_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,76 +12,77 @@ part of 'drawing_path.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$DrawingPath {
-  Path get path;
-  Paint get paint;
+mixin _$SpaceViewPortModel {
+  int get id;
 
-  /// Create a copy of DrawingPath
+  /// Create a copy of SpaceViewPortModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $DrawingPathCopyWith<DrawingPath> get copyWith =>
-      _$DrawingPathCopyWithImpl<DrawingPath>(this as DrawingPath, _$identity);
+  $SpaceViewPortModelCopyWith<SpaceViewPortModel> get copyWith =>
+      _$SpaceViewPortModelCopyWithImpl<SpaceViewPortModel>(
+        this as SpaceViewPortModel,
+        _$identity,
+      );
+
+  /// Serializes this SpaceViewPortModel to a JSON map.
+  Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is DrawingPath &&
-            (identical(other.path, path) || other.path == path) &&
-            (identical(other.paint, paint) || other.paint == paint));
+            other is SpaceViewPortModel &&
+            (identical(other.id, id) || other.id == id));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, path, paint);
+  int get hashCode => Object.hash(runtimeType, id);
 
   @override
   String toString() {
-    return 'DrawingPath(path: $path, paint: $paint)';
+    return 'SpaceViewPortModel(id: $id)';
   }
 }
 
 /// @nodoc
-abstract mixin class $DrawingPathCopyWith<$Res> {
-  factory $DrawingPathCopyWith(
-    DrawingPath value,
-    $Res Function(DrawingPath) _then,
-  ) = _$DrawingPathCopyWithImpl;
+abstract mixin class $SpaceViewPortModelCopyWith<$Res> {
+  factory $SpaceViewPortModelCopyWith(
+    SpaceViewPortModel value,
+    $Res Function(SpaceViewPortModel) _then,
+  ) = _$SpaceViewPortModelCopyWithImpl;
   @useResult
-  $Res call({Path path, Paint paint});
+  $Res call({int id});
 }
 
 /// @nodoc
-class _$DrawingPathCopyWithImpl<$Res> implements $DrawingPathCopyWith<$Res> {
-  _$DrawingPathCopyWithImpl(this._self, this._then);
+class _$SpaceViewPortModelCopyWithImpl<$Res>
+    implements $SpaceViewPortModelCopyWith<$Res> {
+  _$SpaceViewPortModelCopyWithImpl(this._self, this._then);
 
-  final DrawingPath _self;
-  final $Res Function(DrawingPath) _then;
+  final SpaceViewPortModel _self;
+  final $Res Function(SpaceViewPortModel) _then;
 
-  /// Create a copy of DrawingPath
+  /// Create a copy of SpaceViewPortModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? path = null, Object? paint = null}) {
+  $Res call({Object? id = null}) {
     return _then(
       _self.copyWith(
-        path:
-            null == path
-                ? _self.path
-                : path // ignore: cast_nullable_to_non_nullable
-                    as Path,
-        paint:
-            null == paint
-                ? _self.paint
-                : paint // ignore: cast_nullable_to_non_nullable
-                    as Paint,
+        id:
+            null == id
+                ? _self.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as int,
       ),
     );
   }
 }
 
-/// Adds pattern-matching-related methods to [DrawingPath].
-extension DrawingPathPatterns on DrawingPath {
+/// Adds pattern-matching-related methods to [SpaceViewPortModel].
+extension SpaceViewPortModelPatterns on SpaceViewPortModel {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -96,12 +97,12 @@ extension DrawingPathPatterns on DrawingPath {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_DrawingPath value)? $default, {
+    TResult Function(_SpaceViewPortModel value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _DrawingPath() when $default != null:
+      case _SpaceViewPortModel() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -123,11 +124,11 @@ extension DrawingPathPatterns on DrawingPath {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_DrawingPath value) $default,
+    TResult Function(_SpaceViewPortModel value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DrawingPath():
+      case _SpaceViewPortModel():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -148,11 +149,11 @@ extension DrawingPathPatterns on DrawingPath {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_DrawingPath value)? $default,
+    TResult? Function(_SpaceViewPortModel value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DrawingPath() when $default != null:
+      case _SpaceViewPortModel() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -173,13 +174,13 @@ extension DrawingPathPatterns on DrawingPath {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(Path path, Paint paint)? $default, {
+    TResult Function(int id)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _DrawingPath() when $default != null:
-        return $default(_that.path, _that.paint);
+      case _SpaceViewPortModel() when $default != null:
+        return $default(_that.id);
       case _:
         return orElse();
     }
@@ -199,13 +200,11 @@ extension DrawingPathPatterns on DrawingPath {
   /// ```
 
   @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(Path path, Paint paint) $default,
-  ) {
+  TResult when<TResult extends Object?>(TResult Function(int id) $default) {
     final _that = this;
     switch (_that) {
-      case _DrawingPath():
-        return $default(_that.path, _that.paint);
+      case _SpaceViewPortModel():
+        return $default(_that.id);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -225,12 +224,12 @@ extension DrawingPathPatterns on DrawingPath {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(Path path, Paint paint)? $default,
+    TResult? Function(int id)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _DrawingPath() when $default != null:
-        return $default(_that.path, _that.paint);
+      case _SpaceViewPortModel() when $default != null:
+        return $default(_that.id);
       case _:
         return null;
     }
@@ -238,77 +237,78 @@ extension DrawingPathPatterns on DrawingPath {
 }
 
 /// @nodoc
-
-class _DrawingPath implements DrawingPath {
-  _DrawingPath({required this.path, required this.paint});
+@JsonSerializable()
+class _SpaceViewPortModel implements SpaceViewPortModel {
+  _SpaceViewPortModel({required this.id});
+  factory _SpaceViewPortModel.fromJson(Map<String, dynamic> json) =>
+      _$SpaceViewPortModelFromJson(json);
 
   @override
-  final Path path;
-  @override
-  final Paint paint;
+  final int id;
 
-  /// Create a copy of DrawingPath
+  /// Create a copy of SpaceViewPortModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$DrawingPathCopyWith<_DrawingPath> get copyWith =>
-      __$DrawingPathCopyWithImpl<_DrawingPath>(this, _$identity);
+  _$SpaceViewPortModelCopyWith<_SpaceViewPortModel> get copyWith =>
+      __$SpaceViewPortModelCopyWithImpl<_SpaceViewPortModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$SpaceViewPortModelToJson(this);
+  }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DrawingPath &&
-            (identical(other.path, path) || other.path == path) &&
-            (identical(other.paint, paint) || other.paint == paint));
+            other is _SpaceViewPortModel &&
+            (identical(other.id, id) || other.id == id));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, path, paint);
+  int get hashCode => Object.hash(runtimeType, id);
 
   @override
   String toString() {
-    return 'DrawingPath(path: $path, paint: $paint)';
+    return 'SpaceViewPortModel(id: $id)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$DrawingPathCopyWith<$Res>
-    implements $DrawingPathCopyWith<$Res> {
-  factory _$DrawingPathCopyWith(
-    _DrawingPath value,
-    $Res Function(_DrawingPath) _then,
-  ) = __$DrawingPathCopyWithImpl;
+abstract mixin class _$SpaceViewPortModelCopyWith<$Res>
+    implements $SpaceViewPortModelCopyWith<$Res> {
+  factory _$SpaceViewPortModelCopyWith(
+    _SpaceViewPortModel value,
+    $Res Function(_SpaceViewPortModel) _then,
+  ) = __$SpaceViewPortModelCopyWithImpl;
   @override
   @useResult
-  $Res call({Path path, Paint paint});
+  $Res call({int id});
 }
 
 /// @nodoc
-class __$DrawingPathCopyWithImpl<$Res> implements _$DrawingPathCopyWith<$Res> {
-  __$DrawingPathCopyWithImpl(this._self, this._then);
+class __$SpaceViewPortModelCopyWithImpl<$Res>
+    implements _$SpaceViewPortModelCopyWith<$Res> {
+  __$SpaceViewPortModelCopyWithImpl(this._self, this._then);
 
-  final _DrawingPath _self;
-  final $Res Function(_DrawingPath) _then;
+  final _SpaceViewPortModel _self;
+  final $Res Function(_SpaceViewPortModel) _then;
 
-  /// Create a copy of DrawingPath
+  /// Create a copy of SpaceViewPortModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $Res call({Object? path = null, Object? paint = null}) {
+  $Res call({Object? id = null}) {
     return _then(
-      _DrawingPath(
-        path:
-            null == path
-                ? _self.path
-                : path // ignore: cast_nullable_to_non_nullable
-                    as Path,
-        paint:
-            null == paint
-                ? _self.paint
-                : paint // ignore: cast_nullable_to_non_nullable
-                    as Paint,
+      _SpaceViewPortModel(
+        id:
+            null == id
+                ? _self.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as int,
       ),
     );
   }

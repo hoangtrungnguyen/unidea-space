@@ -18,7 +18,7 @@ class SpacePainter extends CustomPainter {
     // Draw all objects
     for (final object in objects) {
       if (object is PathObject) {
-        canvas.drawPath(object.drawingPath.path, object.drawingPath.paint);
+        canvas.drawPath(object.path, object.paint);
       } else if (object is ShapeObject) {
         _drawShape(canvas, object);
       }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ideascape/features/space/domain/models/drawing_path.dart';
 import 'package:ideascape/features/space/domain/models/object_painter.dart';
 import 'package:ideascape/features/space/domain/models/objects/space_object.dart';
 
@@ -41,6 +40,7 @@ class _SpaceDemoPageState extends State<SpaceDemoPage> {
             onPressed: () {
               setState(() {
                 _panEnabled = !_panEnabled;
+                _currentPath = null;
               });
             },
           ),
@@ -48,7 +48,8 @@ class _SpaceDemoPageState extends State<SpaceDemoPage> {
       ),
       body: InteractiveViewer(
         transformationController: _controller,
-        panEnabled: true,
+        panEnabled: _panEnabled,
+        boundaryMargin: EdgeInsets.all(double.infinity),
         child: AnimatedBuilder(
           animation: _controller,
           builder: (BuildContext context, Widget? child) {
@@ -60,6 +61,9 @@ class _SpaceDemoPageState extends State<SpaceDemoPage> {
                 ),
 
                 GestureDetector(
+                  onPanEnd: _panEnabled ? null : _onPanEnd,
+                  onPanStart: _panEnabled ? null : _onPanStart,
+                  onPanUpdate: _panEnabled ? null : _onPanUpdate,
                   child: CustomPaint(
                     // Set a size for the canvas world.
                     size: Size(defaultWidth, defaultHeight),
@@ -75,11 +79,9 @@ class _SpaceDemoPageState extends State<SpaceDemoPage> {
                     painter: ObjectPainter(
                       objects: [
                         PathObject(
-                          DrawingPath(
-                            path: _currentPath!,
-                            paint: _currentPaint,
-                          ),
-                          -1,
+                          path: _currentPath!,
+                          paint: _currentPaint,
+                          id: -1,
                         ),
                       ],
                       transform: _transformMatrix,
@@ -140,8 +142,9 @@ class _SpaceDemoPageState extends State<SpaceDemoPage> {
       setState(() {
         _paths.add(
           PathObject(
-            DrawingPath(path: _currentPath!, paint: _currentPaint),
-            DateTime.now().millisecondsSinceEpoch,
+            path: _currentPath!,
+            paint: _currentPaint,
+            id: DateTime.now().millisecondsSinceEpoch,
           ),
         );
         _currentPath = null;

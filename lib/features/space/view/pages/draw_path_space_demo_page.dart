@@ -3,7 +3,6 @@ import 'package:ideascape/features/space/domain/models/object_painter.dart';
 import 'package:ideascape/features/space/domain/models/objects/space_object.dart';
 
 import '../../domain/models/grid_painter.dart';
-import '../constant.dart';
 
 class SpaceDemoPage extends StatefulWidget {
   static String routePath = "/line-demo-path";
@@ -32,6 +31,8 @@ class _SpaceDemoPageState extends State<SpaceDemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: AppBar(
         title: Text('Interactive Drawing - $_panEnabled'),
         actions: [
@@ -40,57 +41,68 @@ class _SpaceDemoPageState extends State<SpaceDemoPage> {
             onPressed: () {
               setState(() {
                 _panEnabled = !_panEnabled;
-                _currentPath = null;
               });
             },
           ),
         ],
       ),
-      body: InteractiveViewer(
-        transformationController: _controller,
-        panEnabled: _panEnabled,
-        boundaryMargin: EdgeInsets.all(double.infinity),
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (BuildContext context, Widget? child) {
-            return Stack(
-              children: [
-                CustomPaint(
-                  size: MediaQuery.of(context).size * 15,
-                  painter: GridPainter(transformationController: _controller),
-                ),
-
-                GestureDetector(
-                  onPanEnd: _panEnabled ? null : _onPanEnd,
-                  onPanStart: _panEnabled ? null : _onPanStart,
-                  onPanUpdate: _panEnabled ? null : _onPanUpdate,
-                  child: CustomPaint(
-                    // Set a size for the canvas world.
-                    size: Size(defaultWidth, defaultHeight),
-                    // The painter gets the objects and the current transform matrix from the state.
-                    painter: ObjectPainter(
-                      objects: this._paths,
-                      transform: _transformMatrix,
-                    ),
-                  ),
-                ),
-                if (_currentPath != null)
-                  CustomPaint(
-                    painter: ObjectPainter(
-                      objects: [
-                        PathObject(
-                          path: _currentPath!,
-                          paint: _currentPaint,
-                          id: -1,
+      body: Stack(
+        children: [
+          InteractiveViewer(
+            transformationController: _controller,
+            panEnabled: _panEnabled,
+            scaleEnabled: _panEnabled,
+            onInteractionStart: _handleInteractionStart,
+            onInteractionUpdate: _handleInteractionUpdate,
+            onInteractionEnd: _handleInteractionEnd,
+            boundaryMargin: EdgeInsets.all(double.infinity),
+            child: Container(
+              width: double.infinity,
+              color: Colors.transparent,
+              height: double.infinity,
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (BuildContext context, Widget? child) {
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      CustomPaint(
+                        size: MediaQuery.of(context).size * 15,
+                        painter: GridPainter(
+                          transformationController: _controller,
                         ),
-                      ],
-                      transform: _transformMatrix,
-                    ),
-                  ),
-              ],
-            );
-          },
-        ),
+                      ),
+
+                      CustomPaint(
+                        // Set a size for the canvas world.
+                        size: Size(double.infinity, double.infinity),
+                        // The painter gets the objects and the current transform matrix from the state.
+                        painter: ObjectPainter(
+                          objects: this._paths,
+                          transform: _transformMatrix,
+                        ),
+                      ),
+                      if (_currentPath != null)
+                        CustomPaint(
+                          size: Size(double.infinity, double.infinity),
+                          painter: ObjectPainter(
+                            objects: [
+                              PathObject(
+                                path: _currentPath!,
+                                paint: _currentPaint,
+                                id: -1,
+                              ),
+                            ],
+                            transform: _transformMatrix,
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -115,30 +127,30 @@ class _SpaceDemoPageState extends State<SpaceDemoPage> {
     return MatrixUtils.transformPoint(inverse, global);
   }
 
-  // --- Gesture Handlers ---
-
-  void _onPanStart(DragStartDetails details) {
-    // Start a new path at the gesture's local position.
-    final localPosition = _toLocal(details.localPosition);
-    setState(() {
-      print("onPanStater");
-      _currentPath = Path()..moveTo(localPosition.dx, localPosition.dy);
-    });
+  void _handleInteractionStart(ScaleStartDetails details) {
+    // If in drawing mode, start a new path.
+    if (!_panEnabled) {
+      final localPosition = _toLocal(details.focalPoint);
+      setState(() {
+        _currentPath = Path()..moveTo(localPosition.dx, localPosition.dy);
+      });
+    }
   }
 
-  void _onPanUpdate(DragUpdateDetails details) {
-    // Extend the current path with the new point.
-    if (_currentPath != null) {
-      final localPosition = _toLocal(details.localPosition);
+  void _handleInteractionUpdate(ScaleUpdateDetails details) {
+    // If in drawing mode and a path exists, extend the path.
+    // We check scale to prevent drawing while zooming.
+    if (!_panEnabled && _currentPath != null && details.scale == 1.0) {
+      final localPosition = _toLocal(details.focalPoint);
       setState(() {
         _currentPath!.lineTo(localPosition.dx, localPosition.dy);
       });
     }
   }
 
-  void _onPanEnd(DragEndDetails details) {
-    // Finalize the current path by adding it to the list of lines.
-    if (_currentPath != null) {
+  void _handleInteractionEnd(ScaleEndDetails details) {
+    // If in drawing mode, finalize the path.
+    if (!_panEnabled && _currentPath != null) {
       setState(() {
         _paths.add(
           PathObject(

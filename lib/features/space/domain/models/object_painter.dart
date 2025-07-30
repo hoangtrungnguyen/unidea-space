@@ -22,11 +22,11 @@ class ObjectPainter extends CustomPainter {
     // // In a real-world app with millions of objects, you would use a
     // // spatial partitioning data structure (like a Quadtree) to get this
     // // list of visible objects in O(log n) time, instead of iterating.
-    final visibleObjects = objects.where(
-      (obj) => obj.rect.overlaps(visibleRect),
-    );
-
-    // final visibleObjects = objects;
+    // final visibleObjects = objects.where(
+    //   (obj) => obj.rect.overlaps(visibleRect),
+    // );
+    //
+    final visibleObjects = objects;
 
     for (final object in visibleObjects.whereType<ShapeObject>()) {
       canvas.drawRect(object.rect, object.paint);

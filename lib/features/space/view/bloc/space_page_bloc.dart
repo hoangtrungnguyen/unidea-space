@@ -35,7 +35,7 @@ class SpacePageBloc extends Bloc<SpacePageEvent, SpacePageState> {
 
     on<_SpaceTransformUpdated>(
       _onSpaceTransformUpdated,
-      transformer: customDebounce(const Duration(milliseconds: 16)),
+      transformer: customDebounce(const Duration(milliseconds: 10)),
     );
   }
 
@@ -56,7 +56,7 @@ class SpacePageBloc extends Bloc<SpacePageEvent, SpacePageState> {
       final data = await _spaceViewRepository.findById(id);
       final random = Random();
       final Map<int, ShapeObject> generatedObjects = {};
-      const int objectCount = 100000; // Let's manage 10,000 objects!
+      const int objectCount = 10000; // Let's manage 10,000 objects!
       const double worldSize = defaultWidth;
       for (int i = 0; i < objectCount; i++) {
         final id = nextUniqueId;

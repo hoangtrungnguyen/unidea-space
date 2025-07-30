@@ -8,6 +8,10 @@ class ObjectPainter extends CustomPainter {
 
   ObjectPainter({required this.objects, required this.transform});
 
+  final textPainter = TextPainter(
+    textDirection: TextDirection.ltr, // This is required!
+  );
+
   @override
   void paint(Canvas canvas, Size size) {
     // *** PERFORMANCE OPTIMIZATION: VIEW CULLING ***
@@ -22,14 +26,33 @@ class ObjectPainter extends CustomPainter {
     // // In a real-world app with millions of objects, you would use a
     // // spatial partitioning data structure (like a Quadtree) to get this
     // // list of visible objects in O(log n) time, instead of iterating.
-    // final visibleObjects = objects.where(
-    //   (obj) => obj.rect.overlaps(visibleRect),
-    // );
-    //
-    final visibleObjects = objects;
+    final visibleObjects = objects.where(
+      (obj) => obj.rect.overlaps(visibleRect),
+    );
+    // final visibleObjects = objects;
 
     for (final object in visibleObjects.whereType<ShapeObject>()) {
       canvas.drawRect(object.rect, object.paint);
+      // if (object.text.isNotEmpty) {
+      final textSpan = TextSpan(
+        text: object.text + object.zIndex.toString(),
+        style: TextStyle(color: Colors.black, fontSize: 14),
+      );
+      //
+      textPainter.text = textSpan;
+      //
+      // // Calculate the text's size and layout.
+      textPainter.layout(minWidth: 0, maxWidth: object.rect.width);
+      //
+      // // Center the text inside the rectangle.
+      final offset = Offset(
+        object.rect.left + (object.rect.width - textPainter.width) / 2,
+        object.rect.top + (object.rect.height - textPainter.height) / 2,
+      );
+
+      // Paint the text onto the canvas.
+      textPainter.paint(canvas, offset);
+      // }
     }
 
     for (final object in visibleObjects.whereType<PathObject>()) {
@@ -48,19 +71,16 @@ class ObjectPainter extends CustomPainter {
   Rect _calculateVisibleRect(Canvas canvas, Size size) {
     final invertedMatrix = Matrix4.inverted(transform);
     // Get the top-left corner of the screen in canvas coordinates.
-    final topLeft = MatrixUtils.transformPoint(
-      invertedMatrix,
-      Offset(-300, -300),
-    );
+    final topLeft = MatrixUtils.transformPoint(invertedMatrix, Offset.zero);
     // Get the bottom-right corner of the screen in canvas coordinates.
     final bottomRight = MatrixUtils.transformPoint(
       invertedMatrix,
-      size.bottomRight(Offset(300, 300)),
+      size.bottomRight(Offset.zero),
     );
 
     // Create a rectangle representing the visible area.
     // Add a small buffer to prevent objects from popping in/out at the edges.
-    return Rect.fromPoints(topLeft, bottomRight).inflate(50.0);
+    return Rect.fromPoints(topLeft, bottomRight).inflate(200.0);
   }
 
   @override

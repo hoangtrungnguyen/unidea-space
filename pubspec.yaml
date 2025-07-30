@@ -39,9 +39,15 @@ dependencies:
 
   web_socket_client: ^0.2.1
 
-  desktop_multi_window: ^0.2.0 # Use the latest version
-
   dart_scope_functions: ^1.0.0
+
+  quadtree_dart: ^1.1.1
+
+  # For simple state management
+  provider: ^6.0.5
+
+  # For generating unique IDs for our objects
+  uuid: ^4.2.1
 
 dev_dependencies:
   flutter_test:

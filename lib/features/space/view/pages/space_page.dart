@@ -126,9 +126,9 @@ class _SpacePageState extends State<SpacePage> {
                                 boundaryMargin: const EdgeInsets.all(
                                   double.infinity,
                                 ),
-
                                 // panEnabled: _selectedTool == SpaceTool.pan,
-                                minScale: 1,
+                                minScale: 0.02,
+                                scaleFactor: 0.1,
                                 maxScale: 100.0,
                                 child: AnimatedBuilder(
                                   animation: _controller,

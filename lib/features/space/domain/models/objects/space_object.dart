@@ -12,6 +12,10 @@ abstract class SpaceObject {
   int get zIndex => 0;
 
   Rect get rect;
+
+  bool intersects(SpaceObject other) {
+    return rect.overlaps(other.rect);
+  }
 }
 
 // Represents a freehand drawing.
@@ -37,6 +41,7 @@ abstract class ShapeObject extends SpaceObject with _$ShapeObject {
     required Rect rect,
     required Paint paint,
     required int id,
+    @Default('') String text,
     @Default(0) int zIndex,
   }) = _ShapeObject;
 

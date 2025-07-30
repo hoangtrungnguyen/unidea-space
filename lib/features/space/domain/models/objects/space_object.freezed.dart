@@ -366,6 +366,7 @@ mixin _$ShapeObject {
   Rect get rect;
   Paint get paint;
   int get id;
+  String get text;
   int get zIndex;
 
   /// Create a copy of ShapeObject
@@ -384,15 +385,17 @@ mixin _$ShapeObject {
             (identical(other.rect, rect) || other.rect == rect) &&
             (identical(other.paint, paint) || other.paint == paint) &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.text, text) || other.text == text) &&
             (identical(other.zIndex, zIndex) || other.zIndex == zIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, type, rect, paint, id, zIndex);
+  int get hashCode =>
+      Object.hash(runtimeType, type, rect, paint, id, text, zIndex);
 
   @override
   String toString() {
-    return 'ShapeObject(type: $type, rect: $rect, paint: $paint, id: $id, zIndex: $zIndex)';
+    return 'ShapeObject(type: $type, rect: $rect, paint: $paint, id: $id, text: $text, zIndex: $zIndex)';
   }
 }
 
@@ -403,7 +406,14 @@ abstract mixin class $ShapeObjectCopyWith<$Res> {
     $Res Function(ShapeObject) _then,
   ) = _$ShapeObjectCopyWithImpl;
   @useResult
-  $Res call({ShapeType type, Rect rect, Paint paint, int id, int zIndex});
+  $Res call({
+    ShapeType type,
+    Rect rect,
+    Paint paint,
+    int id,
+    String text,
+    int zIndex,
+  });
 }
 
 /// @nodoc
@@ -422,6 +432,7 @@ class _$ShapeObjectCopyWithImpl<$Res> implements $ShapeObjectCopyWith<$Res> {
     Object? rect = null,
     Object? paint = null,
     Object? id = null,
+    Object? text = null,
     Object? zIndex = null,
   }) {
     return _then(
@@ -446,6 +457,11 @@ class _$ShapeObjectCopyWithImpl<$Res> implements $ShapeObjectCopyWith<$Res> {
                 ? _self.id
                 : id // ignore: cast_nullable_to_non_nullable
                     as int,
+        text:
+            null == text
+                ? _self.text
+                : text // ignore: cast_nullable_to_non_nullable
+                    as String,
         zIndex:
             null == zIndex
                 ? _self.zIndex
@@ -554,6 +570,7 @@ extension ShapeObjectPatterns on ShapeObject {
       Rect rect,
       Paint paint,
       int id,
+      String text,
       int zIndex,
     )?
     $default, {
@@ -567,6 +584,7 @@ extension ShapeObjectPatterns on ShapeObject {
           _that.rect,
           _that.paint,
           _that.id,
+          _that.text,
           _that.zIndex,
         );
       case _:
@@ -589,7 +607,14 @@ extension ShapeObjectPatterns on ShapeObject {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(ShapeType type, Rect rect, Paint paint, int id, int zIndex)
+    TResult Function(
+      ShapeType type,
+      Rect rect,
+      Paint paint,
+      int id,
+      String text,
+      int zIndex,
+    )
     $default,
   ) {
     final _that = this;
@@ -600,6 +625,7 @@ extension ShapeObjectPatterns on ShapeObject {
           _that.rect,
           _that.paint,
           _that.id,
+          _that.text,
           _that.zIndex,
         );
       case _:
@@ -626,6 +652,7 @@ extension ShapeObjectPatterns on ShapeObject {
       Rect rect,
       Paint paint,
       int id,
+      String text,
       int zIndex,
     )?
     $default,
@@ -638,6 +665,7 @@ extension ShapeObjectPatterns on ShapeObject {
           _that.rect,
           _that.paint,
           _that.id,
+          _that.text,
           _that.zIndex,
         );
       case _:
@@ -654,6 +682,7 @@ class _ShapeObject extends ShapeObject {
     required this.rect,
     required this.paint,
     required this.id,
+    this.text = '',
     this.zIndex = 0,
   }) : super._();
 
@@ -665,6 +694,9 @@ class _ShapeObject extends ShapeObject {
   final Paint paint;
   @override
   final int id;
+  @override
+  @JsonKey()
+  final String text;
   @override
   @JsonKey()
   final int zIndex;
@@ -686,15 +718,17 @@ class _ShapeObject extends ShapeObject {
             (identical(other.rect, rect) || other.rect == rect) &&
             (identical(other.paint, paint) || other.paint == paint) &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.text, text) || other.text == text) &&
             (identical(other.zIndex, zIndex) || other.zIndex == zIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, type, rect, paint, id, zIndex);
+  int get hashCode =>
+      Object.hash(runtimeType, type, rect, paint, id, text, zIndex);
 
   @override
   String toString() {
-    return 'ShapeObject(type: $type, rect: $rect, paint: $paint, id: $id, zIndex: $zIndex)';
+    return 'ShapeObject(type: $type, rect: $rect, paint: $paint, id: $id, text: $text, zIndex: $zIndex)';
   }
 }
 
@@ -707,7 +741,14 @@ abstract mixin class _$ShapeObjectCopyWith<$Res>
   ) = __$ShapeObjectCopyWithImpl;
   @override
   @useResult
-  $Res call({ShapeType type, Rect rect, Paint paint, int id, int zIndex});
+  $Res call({
+    ShapeType type,
+    Rect rect,
+    Paint paint,
+    int id,
+    String text,
+    int zIndex,
+  });
 }
 
 /// @nodoc
@@ -726,6 +767,7 @@ class __$ShapeObjectCopyWithImpl<$Res> implements _$ShapeObjectCopyWith<$Res> {
     Object? rect = null,
     Object? paint = null,
     Object? id = null,
+    Object? text = null,
     Object? zIndex = null,
   }) {
     return _then(
@@ -750,6 +792,11 @@ class __$ShapeObjectCopyWithImpl<$Res> implements _$ShapeObjectCopyWith<$Res> {
                 ? _self.id
                 : id // ignore: cast_nullable_to_non_nullable
                     as int,
+        text:
+            null == text
+                ? _self.text
+                : text // ignore: cast_nullable_to_non_nullable
+                    as String,
         zIndex:
             null == zIndex
                 ? _self.zIndex

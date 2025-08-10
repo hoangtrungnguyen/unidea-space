@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ideascape/app/view/bloc/auth/auth_bloc.dart';
 import 'package:ideascape/features/dashboard/view/pages/dashboard_page.dart';
+import 'package:ideascape/features/demo/demo_js_interop_page.dart';
+import 'package:ideascape/features/demo/demo_auto_merge_page.dart';
+// import 'package:ideascape/features/demo/demo_js_interop_page.dart';
 import 'package:ideascape/features/demo/grid_demo_page.dart';
+// import 'package:ideascape/features/demo/js_interop_service.dart';
 import 'package:ideascape/features/home/home.dart' show HomePage;
 import 'package:ideascape/features/space/view/pages/draw_path_space_demo_page.dart';
 import 'package:ideascape/features/space/view/pages/space_page.dart';
@@ -13,7 +17,9 @@ mixin AppRouter {
   GoRouter buildRouter(AuthBloc authBloc) {
     return GoRouter(
       // initialLocation: SpaceDemoPage.routePath,
-      initialLocation: DashboardPage.routePath,
+      // initialLocation: DashboardPage.routePath,
+      initialLocation: '/auto-merge',
+      // initialLocation: "/js-interop",
       routes: <RouteBase>[
         GoRoute(
           path: '/splash',
@@ -52,6 +58,19 @@ mixin AppRouter {
             return SpaceDemoPage();
           },
         ),
+
+        GoRoute(
+          path: '/auto-merge',
+          builder: (context, state){
+            return DemoAutoMergePage();
+          }
+        ),
+        GoRoute(
+          path: "/js-interop",
+          builder: (context, state){
+            return DemoJsInteropPage();
+          }
+        )
       ],
     );
   }

@@ -29,10 +29,28 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
+    <script src="/assets/assets/js/automerge.js" defer=""></script>
+    <script src="/assets/assets/js/demo.js" defer=""></script>
+
+    <!-- Add this new script tag -->
+    <script>
+        // The automerge.js bundle attaches an object to window.Automerge.
+        // Its `default` property is the async init function.
+        if (window.Automerge && window.Automerge.default) {
+            window.Automerge.default().then(() => {
+                console.log("Automerge WASM is initialized and ready.");
+                // Now that it's ready, dispatch a custom event that Dart can listen for.
+                const event = new Event('automerge-ready');
+                window.dispatchEvent(event);
+            });
+        }
+    </script>
+
   <title>esupa_store_pos</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

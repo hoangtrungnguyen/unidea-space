@@ -9,6 +9,7 @@ targets:
             - lib/**/bloc/**
             - lib/**/models/**
             - lib/business_logic/models/**
+            - lib/features/demo/**
           exclude:
             - lib/test/
       freezed:
@@ -20,6 +21,7 @@ targets:
 
         generate_for:
           include:
+            - lib/features/demo/**
             - lib/**/dto/**
             - lib/**/cubit/**
             - lib/**/bloc/**

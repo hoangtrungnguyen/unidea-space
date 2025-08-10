@@ -145,3 +145,6 @@ flavor_*.json
 
 .mason/
 mason-lock.json
+
+js_src/node_modules
+js_src/.idea
